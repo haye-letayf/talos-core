@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/jorgeletayf/public_html/talos.1124.com.mx/a/wp-content/plugins/talos-core
+    - /bin/cp -R * $DEPLOYPATH
