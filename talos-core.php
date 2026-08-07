@@ -78,3 +78,43 @@ function talos_acf_json_load_point( $paths ) {
     $paths[] = plugin_dir_path( __FILE__ ) . 'acf-json';
     return $paths;
 }
+
+/**
+ * =========================================================================
+ * 3. AUTOMATIZACIONES Y CÁLCULOS (MÓDULO EMPRESAS)
+ * =========================================================================
+ */
+add_action('acf/save_post', 'talos_calcular_utilidad_empresa', 20);
+function talos_calcular_utilidad_empresa( $post_id ) {
+    
+    // Solo ejecutamos esto si estamos guardando un post del tipo "Empresa"
+    if ( get_post_type($post_id) !== 'talos_company' ) {
+        return;
+    }
+
+    // Obtenemos todas las filas del repetidor de servicios de esta empresa
+    $servicios = get_field('company_services', $post_id);
+    
+    // Si la empresa tiene servicios contratados, hacemos la matemática
+    if ( $servicios ) {
+        $hubo_cambios = false;
+        
+        // Recorremos cada servicio uno por uno
+        foreach ( $servicios as $index => $row ) {
+            $precio = (float) $row['service_price'];
+            $costo  = (float) $row['service_cost'];
+            $utilidad_calculada = $precio - $costo;
+            
+            // Verificamos si la utilidad necesita actualizarse para no hacer guardados innecesarios (WPO)
+            if ( !isset($row['service_utility']) || (float) $row['service_utility'] !== $utilidad_calculada ) {
+                $servicios[$index]['service_utility'] = $utilidad_calculada;
+                $hubo_cambios = true;
+            }
+        }
+        
+        // Si calculamos utilidades nuevas, actualizamos el repetidor completo de forma silenciosa
+        if ( $hubo_cambios ) {
+            update_field('company_services', $servicios, $post_id);
+        }
+    }
+}
