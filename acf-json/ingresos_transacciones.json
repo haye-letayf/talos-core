@@ -1,0 +1,380 @@
+[
+    {
+        "key": "group_6a7a72a5cbbef",
+        "title": "Ingresos y Transacciones",
+        "fields": [
+            {
+                "key": "field_6a7a72a6a4d4d",
+                "label": "Origen",
+                "name": "",
+                "aria-label": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "placement": "top",
+                "endpoint": 0,
+                "selected": 0
+            },
+            {
+                "key": "field_6a7a72fda4d4e",
+                "label": "Empresa",
+                "name": "income_company",
+                "aria-label": "",
+                "type": "post_object",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "post_type": [
+                    "talos_company"
+                ],
+                "post_status": "",
+                "taxonomy": "",
+                "return_format": "object",
+                "multiple": 0,
+                "allow_null": 0,
+                "allow_in_bindings": 0,
+                "bidirectional": 0,
+                "ui": 1,
+                "bidirectional_target": []
+            },
+            {
+                "key": "field_6a7a7343a4d4f",
+                "label": "Servicio",
+                "name": "income_service",
+                "aria-label": "",
+                "type": "post_object",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "post_type": [
+                    "talos_service_cat"
+                ],
+                "post_status": "",
+                "taxonomy": "",
+                "return_format": "object",
+                "multiple": 0,
+                "allow_null": 0,
+                "allow_in_bindings": 0,
+                "bidirectional": 0,
+                "ui": 1,
+                "bidirectional_target": []
+            },
+            {
+                "key": "field_6a7a7366a4d50",
+                "label": "Descripción",
+                "name": "income_description",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "allow_in_bindings": 0,
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_6a7a7381a4d51",
+                "label": "Montos",
+                "name": "",
+                "aria-label": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "placement": "top",
+                "endpoint": 0,
+                "selected": 0
+            },
+            {
+                "key": "field_6a7a739da4d52",
+                "label": "Mes",
+                "name": "income_month",
+                "aria-label": "",
+                "type": "date_picker",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "display_format": "F j, Y",
+                "return_format": "Ymd",
+                "first_day": 1,
+                "default_to_current_date": 0,
+                "allow_in_bindings": 0
+            },
+            {
+                "key": "field_6a7a73d3a4d53",
+                "label": "Precio Unitario",
+                "name": "income_unit_price",
+                "aria-label": "",
+                "type": "number",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "min": "",
+                "max": "",
+                "allow_in_bindings": 0,
+                "placeholder": "",
+                "step": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_6a7a73eaa4d54",
+                "label": "Aplica IVA",
+                "name": "income_applies_iva",
+                "aria-label": "",
+                "type": "true_false",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "",
+                "default_value": 0,
+                "allow_in_bindings": 0,
+                "ui": 0,
+                "ui_on_text": "",
+                "ui_off_text": ""
+            },
+            {
+                "key": "field_6a7a7409a4d55",
+                "label": "Subtotal",
+                "name": "income_subtotal",
+                "aria-label": "",
+                "type": "number",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "min": "",
+                "max": "",
+                "allow_in_bindings": 0,
+                "placeholder": "",
+                "step": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_6a7a7430a4d56",
+                "label": "Total",
+                "name": "income_total",
+                "aria-label": "",
+                "type": "number",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "min": "",
+                "max": "",
+                "allow_in_bindings": 0,
+                "placeholder": "",
+                "step": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_6a7a7448a4d57",
+                "label": "Tipo de Documento",
+                "name": "income_doc_type",
+                "aria-label": "",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "nota_venta": "Nota de Venta",
+                    "factura": "Factura"
+                },
+                "default_value": false,
+                "return_format": "value",
+                "multiple": 0,
+                "allow_null": 0,
+                "allow_in_bindings": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "create_options": 0,
+                "save_options": 0
+            },
+            {
+                "key": "field_6a7a7476a4d58",
+                "label": "Estatus y Cobranza",
+                "name": "",
+                "aria-label": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "placement": "top",
+                "endpoint": 0,
+                "selected": 0
+            },
+            {
+                "key": "field_6a7a7480a4d59",
+                "label": "Enviado",
+                "name": "income_sent",
+                "aria-label": "",
+                "type": "true_false",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "",
+                "default_value": 0,
+                "allow_in_bindings": 0,
+                "ui": 0,
+                "ui_on_text": "",
+                "ui_off_text": ""
+            },
+            {
+                "key": "field_6a7a74a9a4d5a",
+                "label": "Pagado",
+                "name": "income_paid",
+                "aria-label": "",
+                "type": "true_false",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "",
+                "default_value": 0,
+                "allow_in_bindings": 0,
+                "ui": 0,
+                "ui_on_text": "",
+                "ui_off_text": ""
+            },
+            {
+                "key": "field_6a7a74b9a4d5b",
+                "label": "Fecha de Pago",
+                "name": "income_payment_date",
+                "aria-label": "",
+                "type": "date_picker",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "display_format": "F j, Y",
+                "return_format": "Ymd",
+                "first_day": 1,
+                "default_to_current_date": 0,
+                "allow_in_bindings": 0
+            },
+            {
+                "key": "field_6a7a74d5a4d5c",
+                "label": "Recordatorio",
+                "name": "income_reminder_allowed",
+                "aria-label": "",
+                "type": "true_false",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "",
+                "default_value": 0,
+                "allow_in_bindings": 0,
+                "ui": 0,
+                "ui_on_text": "",
+                "ui_off_text": ""
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "talos_income"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": 0,
+        "display_title": "",
+        "allow_ai_access": false,
+        "ai_description": ""
+    }
+]

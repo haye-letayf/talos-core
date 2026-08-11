@@ -1,0 +1,442 @@
+[
+    {
+        "key": "group_6a7a79bb46188",
+        "title": "Gastos",
+        "fields": [
+            {
+                "key": "field_6a7a79bb41e1c",
+                "label": "Clasificación",
+                "name": "",
+                "aria-label": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "placement": "top",
+                "endpoint": 0,
+                "selected": 0
+            },
+            {
+                "key": "field_6a7a79ed41e1d",
+                "label": "Tipo de Gasto",
+                "name": "expense_type",
+                "aria-label": "",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "plantilla": "Plantilla Recurrente",
+                    "transaccion": "Transacción Única"
+                },
+                "default_value": false,
+                "return_format": "value",
+                "multiple": 0,
+                "allow_null": 0,
+                "allow_in_bindings": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "create_options": 0,
+                "save_options": 0
+            },
+            {
+                "key": "field_6a7a7a2241e1e",
+                "label": "Categoría del Gasto",
+                "name": "expense_category",
+                "aria-label": "",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "operacion": "Operación",
+                    "personal": "Personal"
+                },
+                "default_value": false,
+                "return_format": "value",
+                "multiple": 0,
+                "allow_null": 0,
+                "allow_in_bindings": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "create_options": 0,
+                "save_options": 0
+            },
+            {
+                "key": "field_6a7a7a5f41e1f",
+                "label": "Subcategoría del Gasto",
+                "name": "expense_subcategory",
+                "aria-label": "",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "alimentos_bebidas": "Alimentos y Bebidas",
+                    "auto_transporte": "Auto y Transporte",
+                    "casetas": "Casetas",
+                    "comisiones_bancarias": "Comisiones Bancarias \/ Anualidades",
+                    "consultas_medicas": "Consultas Médicas",
+                    "cuidado_personal": "Cuidado Personal",
+                    "deporte": "Deporte",
+                    "dominios_web": "Dominios Web",
+                    "entretenimiento": "Entretenimiento",
+                    "estacionamientos": "Estacionamientos",
+                    "gasolina": "Gasolina",
+                    "gastos_familiares": "Gastos Familiares",
+                    "internet": "Internet",
+                    "licencias_software": "Licencias de Software",
+                    "medicamentos": "Medicamentos",
+                    "nomina": "Nómina",
+                    "publicidad": "Publicidad",
+                    "ropa_calzado": "Ropa y Calzado",
+                    "seguros": "Seguros",
+                    "servicios_hogar": "Servicios del Hogar",
+                    "servidores_hosting": "Servidores & Hosting",
+                    "software_plugins": "Software\/Plugins\/Temas",
+                    "super": "Súper",
+                    "suscripciones": "Suscripciones",
+                    "telefonia": "Telefonía",
+                    "viajes_hospedaje": "Viajes y Hospedaje",
+                    "pendiente": "⚠️ Pendiente de Clasificar"
+                },
+                "default_value": false,
+                "return_format": "value",
+                "multiple": 0,
+                "allow_null": 0,
+                "allow_in_bindings": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "create_options": 0,
+                "save_options": 0
+            },
+            {
+                "key": "field_6a7a7a8d41e20",
+                "label": "Proveedor\/Comercio",
+                "name": "expense_supplier",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "allow_in_bindings": 0,
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_6a7a7aa841e21",
+                "label": "Sueldos y Comisiones",
+                "name": "expense_team_member",
+                "aria-label": "",
+                "type": "post_object",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_6a7a7a5f41e1f",
+                            "operator": "==",
+                            "value": "nomina"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "post_type": [
+                    "talos_team"
+                ],
+                "post_status": "",
+                "taxonomy": "",
+                "return_format": "object",
+                "multiple": 0,
+                "allow_null": 0,
+                "allow_in_bindings": 0,
+                "bidirectional": 0,
+                "ui": 1,
+                "bidirectional_target": []
+            },
+            {
+                "key": "field_6a7a7b1b41e22",
+                "label": "Monto y Recurrencia",
+                "name": "",
+                "aria-label": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "placement": "top",
+                "endpoint": 0,
+                "selected": 0
+            },
+            {
+                "key": "field_6a7a7b2841e23",
+                "label": "Descripción del Gasto",
+                "name": "expense_description",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "allow_in_bindings": 0,
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_6a7a7b3a41e24",
+                "label": "Cantidad",
+                "name": "expense_amount",
+                "aria-label": "",
+                "type": "number",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "min": "",
+                "max": "",
+                "allow_in_bindings": 0,
+                "placeholder": "",
+                "step": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_6a7a7b5941e25",
+                "label": "Frecuencia del Gasto",
+                "name": "expense_frequency",
+                "aria-label": "",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "pago_unico": "Pago Único",
+                    "semanal": "Semanal",
+                    "quincenal": "Quincenal",
+                    "mensual": "Mensual",
+                    "trimestral": "Trimestral",
+                    "semestral": "Semestral",
+                    "anual": "Anual"
+                },
+                "default_value": false,
+                "return_format": "value",
+                "multiple": 0,
+                "allow_null": 0,
+                "allow_in_bindings": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "create_options": 0,
+                "save_options": 0
+            },
+            {
+                "key": "field_6a7a7bfd41e26",
+                "label": "Fecha de Inicio",
+                "name": "expense_start_date",
+                "aria-label": "",
+                "type": "date_picker",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "display_format": "F j, Y",
+                "return_format": "Y-m-d",
+                "first_day": 1,
+                "default_to_current_date": 0,
+                "allow_in_bindings": 0
+            },
+            {
+                "key": "field_6a7a7c1b29938",
+                "label": "Fecha de Fin",
+                "name": "expense_end_date",
+                "aria-label": "",
+                "type": "date_picker",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "display_format": "F j, Y",
+                "return_format": "Y-m-d",
+                "first_day": 1,
+                "default_to_current_date": 0,
+                "allow_in_bindings": 0
+            },
+            {
+                "key": "field_6a7a7c6029939",
+                "label": "Estatus",
+                "name": "expense_status",
+                "aria-label": "",
+                "type": "true_false",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "",
+                "default_value": 0,
+                "allow_in_bindings": 0,
+                "ui": 0,
+                "ui_on_text": "",
+                "ui_off_text": ""
+            },
+            {
+                "key": "field_6a7a7c6f2993a",
+                "label": "Pago",
+                "name": "",
+                "aria-label": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "placement": "top",
+                "endpoint": 0,
+                "selected": 0
+            },
+            {
+                "key": "field_6a7a7c7e2993b",
+                "label": "Pagado",
+                "name": "expense_paid",
+                "aria-label": "",
+                "type": "true_false",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "",
+                "default_value": 0,
+                "allow_in_bindings": 0,
+                "ui": 0,
+                "ui_on_text": "",
+                "ui_off_text": ""
+            },
+            {
+                "key": "field_6a7a7c902993c",
+                "label": "Método de Pago",
+                "name": "expense_payment_method",
+                "aria-label": "",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "amex": "AMEX",
+                    "debito": "Débito",
+                    "efectivo": "Efectivo",
+                    "transferencia": "Transferencia"
+                },
+                "default_value": false,
+                "return_format": "value",
+                "multiple": 0,
+                "allow_null": 0,
+                "allow_in_bindings": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "create_options": 0,
+                "save_options": 0
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "talos_expense"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": 0,
+        "display_title": "",
+        "allow_ai_access": false,
+        "ai_description": ""
+    }
+]

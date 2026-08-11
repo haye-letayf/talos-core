@@ -1,0 +1,260 @@
+[
+    {
+        "key": "group_6a75611ac98fd",
+        "title": "Perfil de Contacto",
+        "fields": [
+            {
+                "key": "field_6a75611bd52b2",
+                "label": "Estatus",
+                "name": "contact_status",
+                "aria-label": "",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "active": "Active",
+                    "standby": "Standby",
+                    "inactive": "Inactive"
+                },
+                "default_value": false,
+                "return_format": "value",
+                "multiple": 0,
+                "allow_null": 0,
+                "allow_in_bindings": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "create_options": 0,
+                "save_options": 0
+            },
+            {
+                "key": "field_6a756187d52b3",
+                "label": "Clase",
+                "name": "contact_class",
+                "aria-label": "",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "client": "Client",
+                    "opportunity": "Open Opportunity",
+                    "lead": "Lead",
+                    "partner": "Partner",
+                    "nfs": "NFS"
+                },
+                "default_value": false,
+                "return_format": "value",
+                "multiple": 0,
+                "allow_null": 0,
+                "allow_in_bindings": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "create_options": 0,
+                "save_options": 0
+            },
+            {
+                "key": "field_6a7561b3d52b4",
+                "label": "Apellidos",
+                "name": "contact_lastname",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "allow_in_bindings": 0,
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_6a7561d4d52b5",
+                "label": "Cargo",
+                "name": "contact_role",
+                "aria-label": "",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "ceo_fundador": "CEO \/ Fundador",
+                    "director_general": "Director General",
+                    "director_marketing": "Director de Marketing (CMO)",
+                    "director_ventas": "Director de Ventas (CSO)",
+                    "gerente_marketing": "Gerente de Marketing",
+                    "gerente_ventas": "Gerente de Ventas",
+                    "gerente_sistemas": "Gerente de TI \/ Sistemas",
+                    "ejecutivo_cuenta": "Ejecutivo de Cuenta",
+                    "asistente_direccion": "Asistente de Dirección",
+                    "recursos_humanos": "Recursos Humanos",
+                    "compras_facturacion": "Compras \/ Facturación",
+                    "otro": "Otro"
+                },
+                "default_value": false,
+                "return_format": "value",
+                "multiple": 0,
+                "allow_null": 0,
+                "allow_in_bindings": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "create_options": 0,
+                "save_options": 0
+            },
+            {
+                "key": "field_6a7561f1d52b6",
+                "label": "Correo Empresa",
+                "name": "contact_company_email",
+                "aria-label": "",
+                "type": "email",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "allow_in_bindings": 0,
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_6a756201d52b7",
+                "label": "Correo Personal",
+                "name": "contact_personal_email",
+                "aria-label": "",
+                "type": "email",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "allow_in_bindings": 0,
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_6a756217d52b8",
+                "label": "Teléfono Oficina",
+                "name": "contact_phone_office",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "allow_in_bindings": 0,
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_6a756227d52b9",
+                "label": "Teléfono Celular",
+                "name": "contact_phone_mobile",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "allow_in_bindings": 0,
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_6a75623ed52ba",
+                "label": "Empresa Relacionada",
+                "name": "contact_company",
+                "aria-label": "",
+                "type": "post_object",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "post_type": [
+                    "talos_company"
+                ],
+                "post_status": "",
+                "taxonomy": "",
+                "return_format": "object",
+                "multiple": 0,
+                "allow_null": 0,
+                "allow_in_bindings": 0,
+                "bidirectional": 0,
+                "ui": 1,
+                "bidirectional_target": []
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "post"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": 0,
+        "display_title": "",
+        "allow_ai_access": false,
+        "ai_description": ""
+    }
+]

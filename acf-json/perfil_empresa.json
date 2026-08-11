@@ -1,0 +1,588 @@
+[
+    {
+        "key": "group_6a755aec897be",
+        "title": "Perfil de Empresa",
+        "fields": [
+            {
+                "key": "field_6a755aecab59b",
+                "label": "Clasificación",
+                "name": "clasificacion",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "sub_fields": [
+                    {
+                        "key": "field_6a755b1aab59c",
+                        "label": "Estatus",
+                        "name": "company_status",
+                        "aria-label": "",
+                        "type": "radio",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "choices": {
+                            "active": "Active",
+                            "standby": "Standby",
+                            "inactive": "Inactive"
+                        },
+                        "default_value": "",
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "other_choice": 0,
+                        "allow_in_bindings": 0,
+                        "layout": "vertical",
+                        "save_other_choice": 0
+                    },
+                    {
+                        "key": "field_6a755b47ab59d",
+                        "label": "Clase",
+                        "name": "company_class",
+                        "aria-label": "",
+                        "type": "select",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "choices": {
+                            "client": "Client",
+                            "opportunity": "Open Opportunity",
+                            "lead": "Lead",
+                            "partner": "Partner",
+                            "nfs": "NFS"
+                        },
+                        "default_value": false,
+                        "return_format": "value",
+                        "multiple": 0,
+                        "allow_null": 0,
+                        "allow_in_bindings": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": "",
+                        "create_options": 0,
+                        "save_options": 0
+                    },
+                    {
+                        "key": "field_6a755b84ab59e",
+                        "label": "Account Manager",
+                        "name": "company_account_manager",
+                        "aria-label": "",
+                        "type": "post_object",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "post_type": [
+                            "talos_team"
+                        ],
+                        "post_status": "",
+                        "taxonomy": "",
+                        "return_format": "object",
+                        "multiple": 0,
+                        "allow_null": 0,
+                        "allow_in_bindings": 0,
+                        "bidirectional": 0,
+                        "ui": 1,
+                        "bidirectional_target": []
+                    }
+                ]
+            },
+            {
+                "key": "field_6a755ba7ab59f",
+                "label": "Datos Fiscales",
+                "name": "datos_fiscales",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "sub_fields": [
+                    {
+                        "key": "field_6a755bb9ab5a0",
+                        "label": "Razón Social",
+                        "name": "company_legal_name",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "allow_in_bindings": 0,
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": ""
+                    },
+                    {
+                        "key": "field_6a755bccab5a1",
+                        "label": "RFC",
+                        "name": "company_rfc",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "allow_in_bindings": 0,
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": ""
+                    },
+                    {
+                        "key": "field_6a755bdaab5a2",
+                        "label": "Código Postal Fiscal",
+                        "name": "company_zip",
+                        "aria-label": "",
+                        "type": "number",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "min": "",
+                        "max": "",
+                        "allow_in_bindings": 0,
+                        "placeholder": "",
+                        "step": "",
+                        "prepend": "",
+                        "append": ""
+                    },
+                    {
+                        "key": "field_6a755bf6ab5a3",
+                        "label": "Entidad Federativa",
+                        "name": "company_state",
+                        "aria-label": "",
+                        "type": "select",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "choices": {
+                            "aguascalientes": "Aguascalientes",
+                            "baja_california": "Baja California",
+                            "baja_california_sur": "Baja California Sur",
+                            "campeche": "Campeche",
+                            "chiapas": "Chiapas",
+                            "chihuahua": "Chihuahua",
+                            "ciudad_de_mexico": "Ciudad de México",
+                            "coahuila": "Coahuila",
+                            "colima": "Colima",
+                            "durango": "Durango",
+                            "estado_de_mexico": "Estado de México",
+                            "guanajuato": "Guanajuato",
+                            "guerrero": "Guerrero",
+                            "hidalgo": "Hidalgo",
+                            "jalisco": "Jalisco",
+                            "michoacan": "Michoacán",
+                            "morelos": "Morelos",
+                            "nayarit": "Nayarit",
+                            "nuevo_leon": "Nuevo León",
+                            "oaxaca": "Oaxaca",
+                            "puebla": "Puebla",
+                            "queretaro": "Querétaro",
+                            "quintana_roo": "Quintana Roo",
+                            "san_luis_potosi": "San Luis Potosí",
+                            "sinaloa": "Sinaloa",
+                            "sonora": "Sonora",
+                            "tabasco": "Tabasco",
+                            "tamaulipas": "Tamaulipas",
+                            "tlaxcala": "Tlaxcala",
+                            "veracruz": "Veracruz",
+                            "yucatan": "Yucatán",
+                            "zacatecas": "Zacatecas"
+                        },
+                        "default_value": false,
+                        "return_format": "value",
+                        "multiple": 0,
+                        "allow_null": 0,
+                        "allow_in_bindings": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": "",
+                        "create_options": 0,
+                        "save_options": 0
+                    },
+                    {
+                        "key": "field_6a755c65ab5a4",
+                        "label": "Régimen Fiscal",
+                        "name": "company_tax_regime",
+                        "aria-label": "",
+                        "type": "select",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "choices": {
+                            "601": "601 - General de Ley Personas Morales",
+                            "603": "603 - Personas Morales con Fines no Lucrativos",
+                            "605": "605 - Sueldos y Salarios e Ingresos Asimilados a Salarios",
+                            "606": "606 - Arrendamiento",
+                            "607": "607 - Régimen de Enajenación o Adquisición de Bienes",
+                            "608": "608 - Demás ingresos",
+                            "611": "611 - Ingresos por Dividendos (socios y accionistas)",
+                            "612": "612 - Personas Físicas con Actividades Empresariales y Profesionales",
+                            "614": "614 - Ingresos por intereses",
+                            "615": "615 - Régimen de los ingresos por obtención de premios",
+                            "616": "616 - Sin obligaciones fiscales",
+                            "620": "620 - Sociedades Cooperativas de Producción que optan por diferir sus ingresos",
+                            "621": "621 - Incorporación Fiscal",
+                            "622": "622 - Actividades Agrícolas, Ganaderas, Silvícolas y Pesqueras",
+                            "623": "623 - Opcional para Grupos de Sociedades",
+                            "624": "624 - Coordinados",
+                            "625": "625 - Régimen de las Actividades Empresariales con ingresos a través de Plataformas Tecnológicas",
+                            "626": "626 - Régimen Simplificado de Confianza (RESICO)"
+                        },
+                        "default_value": false,
+                        "return_format": "value",
+                        "multiple": 0,
+                        "allow_null": 0,
+                        "allow_in_bindings": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": "",
+                        "create_options": 0,
+                        "save_options": 0
+                    },
+                    {
+                        "key": "field_6a755cc6ab5a5",
+                        "label": "Uso de CFDI",
+                        "name": "company_cfdi",
+                        "aria-label": "",
+                        "type": "select",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "choices": {
+                            "G01": "G01 - Adquisición de mercancías",
+                            "G02": "G02 - Devoluciones, descuentos o bonificaciones",
+                            "G03": "G03 - Gastos en general",
+                            "I01": "I01 - Construcciones",
+                            "I02": "I02 - Mobiliario y equipo de oficina por inversiones",
+                            "I03": "I03 - Equipo de transporte",
+                            "I04": "I04 - Equipo de computo y accesorios",
+                            "I05": "I05 - Dados, troqueles, moldes, matrices y herramental",
+                            "I06": "I06 - Comunicaciones telefónicas",
+                            "I07": "I07 - Comunicaciones satelitales",
+                            "I08": "I08 - Otra maquinaria y equipo",
+                            "D01": "D01 - Honorarios médicos, dentales y gastos hospitalarios",
+                            "D02": "D02 - Gastos médicos por incapacidad o discapacidad",
+                            "D03": "D03 - Gastos funerales",
+                            "D04": "D04 - Donativos",
+                            "D05": "D05 - Intereses reales efectivamente pagados por créditos hipotecarios",
+                            "D06": "D06 - Aportaciones voluntarias al SAR",
+                            "D07": "D07 - Primas por seguros de gastos médicos",
+                            "D08": "D08 - Gastos de transportación escolar obligatoria",
+                            "D09": "D09 - Depósitos en cuentas para el ahorro, planes de pensiones",
+                            "D10": "D10 - Pagos por servicios educativos (colegiaturas)",
+                            "S01": "S01 - Sin efectos fiscales",
+                            "CP01": "CP01 - Pagos",
+                            "CN01": "CN01 - Nómina"
+                        },
+                        "default_value": false,
+                        "return_format": "value",
+                        "multiple": 0,
+                        "allow_null": 0,
+                        "allow_in_bindings": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": "",
+                        "create_options": 0,
+                        "save_options": 0
+                    }
+                ]
+            },
+            {
+                "key": "field_6a755cfbab5a7",
+                "label": "Contacto y Ubicación",
+                "name": "contacto_y_ubicacion",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "sub_fields": [
+                    {
+                        "key": "field_6a7560a3cd64b",
+                        "label": "País de la Empresa",
+                        "name": "company_country",
+                        "aria-label": "",
+                        "type": "select",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "choices": {
+                            "mexico": "México",
+                            "estados_unidos": "Estados Unidos",
+                            "espana": "España",
+                            "argentina": "Argentina",
+                            "colombia": "Colombia",
+                            "chile": "Chile",
+                            "peru": "Perú",
+                            "ecuador": "Ecuador",
+                            "guatemala": "Guatemala",
+                            "costa_rica": "Costa Rica",
+                            "canada": "Canadá",
+                            "otro": "Otro"
+                        },
+                        "default_value": "mexico",
+                        "return_format": "value",
+                        "multiple": 0,
+                        "allow_null": 0,
+                        "allow_in_bindings": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": "",
+                        "create_options": 0,
+                        "save_options": 0
+                    },
+                    {
+                        "key": "field_6a755d0eab5a8",
+                        "label": "Dirección Física",
+                        "name": "company_address",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "allow_in_bindings": 0,
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": ""
+                    },
+                    {
+                        "key": "field_6a755d1dab5a9",
+                        "label": "Sitio Web",
+                        "name": "company_website",
+                        "aria-label": "",
+                        "type": "url",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "allow_in_bindings": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_6a755d35ab5aa",
+                        "label": "Teléfono Oficina",
+                        "name": "company_phone",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "allow_in_bindings": 0,
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": ""
+                    },
+                    {
+                        "key": "field_6a755d48ab5ab",
+                        "label": "WhatsApp Oficina",
+                        "name": "company_whatsapp",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "allow_in_bindings": 0,
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": ""
+                    },
+                    {
+                        "key": "field_6a755d5eab5ac",
+                        "label": "Perfiles Sociales",
+                        "name": "company_socials",
+                        "aria-label": "",
+                        "type": "repeater",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "layout": "table",
+                        "pagination": 0,
+                        "min": 0,
+                        "max": 0,
+                        "collapsed": "",
+                        "button_label": "Add Row",
+                        "rows_per_page": 20,
+                        "sub_fields": [
+                            {
+                                "key": "field_6a755d83ab5ad",
+                                "label": "Red Social",
+                                "name": "social_network",
+                                "aria-label": "",
+                                "type": "select",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "facebook": "Facebook",
+                                    "instagram": "Instagram",
+                                    "linkedin": "LinkedIn",
+                                    "x": "X (Twitter)",
+                                    "tiktok": "TikTok",
+                                    "youtube": "YouTube",
+                                    "threads": "Threads",
+                                    "pinterest": "Pinterest"
+                                },
+                                "default_value": false,
+                                "return_format": "value",
+                                "multiple": 0,
+                                "allow_null": 0,
+                                "allow_in_bindings": 0,
+                                "ui": 0,
+                                "ajax": 0,
+                                "placeholder": "",
+                                "create_options": 0,
+                                "save_options": 0,
+                                "parent_repeater": "field_6a755d5eab5ac"
+                            },
+                            {
+                                "key": "field_6a755de8ab5ae",
+                                "label": "URL",
+                                "name": "social_url",
+                                "aria-label": "",
+                                "type": "url",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "allow_in_bindings": 0,
+                                "placeholder": "",
+                                "parent_repeater": "field_6a755d5eab5ac"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "talos_company"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": 0,
+        "display_title": "",
+        "allow_ai_access": false,
+        "ai_description": ""
+    }
+]

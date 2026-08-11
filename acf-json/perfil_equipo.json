@@ -1,0 +1,549 @@
+[
+    {
+        "key": "group_6a755396851db",
+        "title": "Perfil de Equipo",
+        "fields": [
+            {
+                "key": "field_6a7554f199008",
+                "label": "Datos Generales",
+                "name": "datos_generales",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "sub_fields": [
+                    {
+                        "key": "field_6a75552199009",
+                        "label": "Estatus",
+                        "name": "team_status",
+                        "aria-label": "",
+                        "type": "radio",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "choices": {
+                            "activo": "Activo",
+                            "inactivo": "Inactivo"
+                        },
+                        "default_value": "",
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "other_choice": 0,
+                        "allow_in_bindings": 0,
+                        "layout": "vertical",
+                        "save_other_choice": 0
+                    },
+                    {
+                        "key": "field_6a7555409900a",
+                        "label": "Puesto",
+                        "name": "team_role",
+                        "aria-label": "",
+                        "type": "select",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "choices": {
+                            "account_manager": "Account Manager",
+                            "graphic_designer": "Grapfhic Designer",
+                            "programmer": "Programmer",
+                            "manager": "Manager"
+                        },
+                        "default_value": false,
+                        "return_format": "value",
+                        "multiple": 0,
+                        "allow_null": 0,
+                        "allow_in_bindings": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": "",
+                        "create_options": 0,
+                        "save_options": 0
+                    },
+                    {
+                        "key": "field_6a7555619900b",
+                        "label": "Fecha de Nacimiento",
+                        "name": "team_birthdate",
+                        "aria-label": "",
+                        "type": "date_picker",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "display_format": "F j, Y",
+                        "return_format": "Ymd",
+                        "first_day": 1,
+                        "default_to_current_date": 0,
+                        "allow_in_bindings": 0
+                    },
+                    {
+                        "key": "field_6a7555849900c",
+                        "label": "Clave de Elector",
+                        "name": "team_id_card",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "allow_in_bindings": 0,
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": ""
+                    },
+                    {
+                        "key": "field_6a75559a9900d",
+                        "label": "Dirección",
+                        "name": "team_address",
+                        "aria-label": "",
+                        "type": "textarea",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "allow_in_bindings": 0,
+                        "rows": "",
+                        "placeholder": "",
+                        "new_lines": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_6a7555af9900e",
+                "label": "Datos de Contacto",
+                "name": "datos_de_contacto",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "sub_fields": [
+                    {
+                        "key": "field_6a7555c99900f",
+                        "label": "Teléfono",
+                        "name": "team_phone",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "allow_in_bindings": 0,
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": ""
+                    },
+                    {
+                        "key": "field_6a7555de99010",
+                        "label": "Correo Once24",
+                        "name": "team_email_corp",
+                        "aria-label": "",
+                        "type": "email",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "allow_in_bindings": 0,
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": ""
+                    },
+                    {
+                        "key": "field_6a7555f299011",
+                        "label": "Correo Personal",
+                        "name": "team_email_personal",
+                        "aria-label": "",
+                        "type": "email",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "allow_in_bindings": 0,
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": ""
+                    },
+                    {
+                        "key": "field_6a75560a99012",
+                        "label": "Facebook Personal",
+                        "name": "team_social_fb",
+                        "aria-label": "",
+                        "type": "url",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "allow_in_bindings": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_6a75561a99013",
+                        "label": "Instagram Personal",
+                        "name": "team_social_ig",
+                        "aria-label": "",
+                        "type": "url",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "allow_in_bindings": 0,
+                        "placeholder": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_6a75563e99015",
+                "label": "Finanzas y Nómina",
+                "name": "finanzas_y_nomina",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "sub_fields": [
+                    {
+                        "key": "field_6a75565499016",
+                        "label": "Fecha de Inicio",
+                        "name": "team_start_date",
+                        "aria-label": "",
+                        "type": "date_picker",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "display_format": "d\/m\/Y",
+                        "return_format": "d\/m\/Y",
+                        "first_day": 1,
+                        "default_to_current_date": 0,
+                        "allow_in_bindings": 0
+                    },
+                    {
+                        "key": "field_6a75567d99017",
+                        "label": "Datos Bancarios",
+                        "name": "team_bank_details",
+                        "aria-label": "",
+                        "type": "group",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "layout": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_6a7556a699018",
+                                "label": "Banco",
+                                "name": "bank_name",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "maxlength": "",
+                                "allow_in_bindings": 0,
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": ""
+                            },
+                            {
+                                "key": "field_6a7556ba99019",
+                                "label": "Cuenta",
+                                "name": "bank_account",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "maxlength": "",
+                                "allow_in_bindings": 0,
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": ""
+                            },
+                            {
+                                "key": "field_6a7556c99901a",
+                                "label": "CLABE",
+                                "name": "bank_clabe",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "maxlength": "",
+                                "allow_in_bindings": 0,
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": ""
+                            },
+                            {
+                                "key": "field_6a7556db9901b",
+                                "label": "Tarjeta",
+                                "name": "bank_card_number",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "maxlength": "",
+                                "allow_in_bindings": 0,
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": ""
+                            }
+                        ]
+                    },
+                    {
+                        "key": "field_6a75573f9901c",
+                        "label": "Historial de Sueldos",
+                        "name": "team_salary_history",
+                        "aria-label": "",
+                        "type": "repeater",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "layout": "table",
+                        "pagination": 0,
+                        "min": 0,
+                        "max": 0,
+                        "collapsed": "",
+                        "button_label": "Add Row",
+                        "rows_per_page": 20,
+                        "sub_fields": [
+                            {
+                                "key": "field_6a7557619901d",
+                                "label": "Fecha",
+                                "name": "salary_date",
+                                "aria-label": "",
+                                "type": "date_picker",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "display_format": "d\/m\/Y",
+                                "return_format": "d\/m\/Y",
+                                "first_day": 1,
+                                "default_to_current_date": 0,
+                                "allow_in_bindings": 0,
+                                "parent_repeater": "field_6a75573f9901c"
+                            },
+                            {
+                                "key": "field_6a7557779901e",
+                                "label": "Sueldo Mensual",
+                                "name": "salary_amount",
+                                "aria-label": "",
+                                "type": "number",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "min": "",
+                                "max": "",
+                                "allow_in_bindings": 0,
+                                "placeholder": "",
+                                "step": "",
+                                "prepend": "",
+                                "append": "",
+                                "parent_repeater": "field_6a75573f9901c"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "key": "field_6a7557959901f",
+                "label": "Salida",
+                "name": "salida",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "sub_fields": [
+                    {
+                        "key": "field_6a7557ad99020",
+                        "label": "Fecha de Salida",
+                        "name": "team_end_date",
+                        "aria-label": "",
+                        "type": "date_picker",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "display_format": "d\/m\/Y",
+                        "return_format": "d\/m\/Y",
+                        "first_day": 1,
+                        "default_to_current_date": 0,
+                        "allow_in_bindings": 0
+                    },
+                    {
+                        "key": "field_6a7557cb99021",
+                        "label": "Motivos de Salida",
+                        "name": "team_exit_terms",
+                        "aria-label": "",
+                        "type": "textarea",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "allow_in_bindings": 0,
+                        "rows": "",
+                        "placeholder": "",
+                        "new_lines": ""
+                    }
+                ]
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "talos_team"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": 0,
+        "display_title": "",
+        "allow_ai_access": false,
+        "ai_description": ""
+    }
+]

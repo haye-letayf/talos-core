@@ -1,0 +1,296 @@
+[
+    {
+        "key": "group_6a753edd496e9",
+        "title": "Contratos y Servicios Activos",
+        "fields": [
+            {
+                "key": "field_6a753edd74f58",
+                "label": "Servicios Contratados",
+                "name": "company_services",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "table",
+                "pagination": 0,
+                "min": 0,
+                "max": 0,
+                "collapsed": "",
+                "button_label": "Add Row",
+                "rows_per_page": 20,
+                "sub_fields": [
+                    {
+                        "key": "field_6a753f0674f59",
+                        "label": "Servicio",
+                        "name": "service_item",
+                        "aria-label": "",
+                        "type": "post_object",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "post_type": [
+                            "talos_service_cat"
+                        ],
+                        "post_status": "",
+                        "taxonomy": "",
+                        "return_format": "object",
+                        "multiple": 0,
+                        "allow_null": 0,
+                        "allow_in_bindings": 0,
+                        "bidirectional": 0,
+                        "ui": 1,
+                        "bidirectional_target": [],
+                        "parent_repeater": "field_6a753edd74f58"
+                    },
+                    {
+                        "key": "field_6a7551119a574",
+                        "label": "Descripción para Factura",
+                        "name": "service_invoice_description",
+                        "aria-label": "",
+                        "type": "textarea",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "allow_in_bindings": 0,
+                        "rows": "",
+                        "placeholder": "",
+                        "new_lines": "",
+                        "parent_repeater": "field_6a753edd74f58"
+                    },
+                    {
+                        "key": "field_6a753f3274f5a",
+                        "label": "Frecuencia",
+                        "name": "service_frequency",
+                        "aria-label": "",
+                        "type": "select",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "choices": {
+                            "pago_unico": "Pago Único",
+                            "semanal": "Semanal",
+                            "quincenal": "Quincenal",
+                            "mensual": "Mensual",
+                            "trimestral": "Trimestral",
+                            "semestral": "Semestral",
+                            "anual": "Anual"
+                        },
+                        "default_value": false,
+                        "return_format": "value",
+                        "multiple": 0,
+                        "allow_null": 0,
+                        "allow_in_bindings": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": "",
+                        "create_options": 0,
+                        "save_options": 0,
+                        "parent_repeater": "field_6a753edd74f58"
+                    },
+                    {
+                        "key": "field_6a753f5474f5b",
+                        "label": "Precio",
+                        "name": "service_price",
+                        "aria-label": "",
+                        "type": "number",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "min": "",
+                        "max": "",
+                        "allow_in_bindings": 0,
+                        "placeholder": "",
+                        "step": "",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_6a753edd74f58"
+                    },
+                    {
+                        "key": "field_6a75513e9a575",
+                        "label": "Costo",
+                        "name": "service_cost",
+                        "aria-label": "",
+                        "type": "number",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "min": "",
+                        "max": "",
+                        "allow_in_bindings": 0,
+                        "placeholder": "",
+                        "step": "",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_6a753edd74f58"
+                    },
+                    {
+                        "key": "field_6a753f7374f5c",
+                        "label": "Utilidad",
+                        "name": "service_utility",
+                        "aria-label": "",
+                        "type": "number",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "min": "",
+                        "max": "",
+                        "allow_in_bindings": 0,
+                        "placeholder": "",
+                        "step": "",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_6a753edd74f58"
+                    },
+                    {
+                        "key": "field_6a7a6ebe87b81",
+                        "label": "Start Date",
+                        "name": "service_start_date",
+                        "aria-label": "",
+                        "type": "date_picker",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "display_format": "d\/m\/Y",
+                        "return_format": "d\/m\/Y",
+                        "first_day": 1,
+                        "default_to_current_date": 0,
+                        "allow_in_bindings": 0,
+                        "parent_repeater": "field_6a753edd74f58"
+                    },
+                    {
+                        "key": "field_6a7a6ed387b82",
+                        "label": "End Date",
+                        "name": "service_end_date",
+                        "aria-label": "",
+                        "type": "date_picker",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "display_format": "d\/m\/Y",
+                        "return_format": "d\/m\/Y",
+                        "first_day": 1,
+                        "default_to_current_date": 0,
+                        "allow_in_bindings": 0,
+                        "parent_repeater": "field_6a753edd74f58"
+                    },
+                    {
+                        "key": "field_6a7a6eee87b83",
+                        "label": "Service Status",
+                        "name": "service_status",
+                        "aria-label": "",
+                        "type": "true_false",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "message": "",
+                        "default_value": 0,
+                        "allow_in_bindings": 0,
+                        "ui": 0,
+                        "ui_on_text": "",
+                        "ui_off_text": "",
+                        "parent_repeater": "field_6a753edd74f58"
+                    },
+                    {
+                        "key": "field_6a7a6f0187b84",
+                        "label": "Reminder",
+                        "name": "service_reminder_allowed",
+                        "aria-label": "",
+                        "type": "true_false",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "message": "",
+                        "default_value": 0,
+                        "allow_in_bindings": 0,
+                        "ui": 0,
+                        "ui_on_text": "",
+                        "ui_off_text": "",
+                        "parent_repeater": "field_6a753edd74f58"
+                    }
+                ]
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "talos_company"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": 0,
+        "display_title": "",
+        "allow_ai_access": false,
+        "ai_description": ""
+    }
+]

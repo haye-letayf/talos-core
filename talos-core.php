@@ -160,3 +160,16 @@ function talos_sincronizar_empresa_contactos( $post_id ) {
         }
     }
 }
+
+add_action( 'acf/init', 'talos_registrar_pagina_reglas_amex' );
+function talos_registrar_pagina_reglas_amex() {
+    if ( function_exists( 'acf_add_options_page' ) ) {
+        acf_add_options_page( array(
+            'page_title' => 'Reglas de Clasificación AMEX',
+            'menu_title' => 'Reglas AMEX',
+            'menu_slug'  => 'talos-reglas-amex',
+            'capability' => 'manage_options',
+            'icon_url'   => 'dashicons-money-alt',
+        ) );
+    }
+}
