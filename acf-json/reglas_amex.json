@@ -1,0 +1,160 @@
+[
+    {
+        "key": "group_6a7a827d2a3a0",
+        "title": "Reglas de Clasificación AMEX",
+        "fields": [
+            {
+                "key": "field_6a7a827de1219",
+                "label": "Reglas de Clasificación",
+                "name": "amex_classification_rules",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "table",
+                "pagination": 0,
+                "min": 0,
+                "max": 0,
+                "collapsed": "",
+                "button_label": "Add Row",
+                "rows_per_page": 20,
+                "sub_fields": [
+                    {
+                        "key": "field_6a7a82a6e121a",
+                        "label": "Palabra Clave",
+                        "name": "rule_keyword",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "allow_in_bindings": 0,
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_6a7a827de1219"
+                    },
+                    {
+                        "key": "field_6a7a82b9e121b",
+                        "label": "Categoría",
+                        "name": "rule_category",
+                        "aria-label": "",
+                        "type": "select",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "choices": {
+                            "operacion": "Operación",
+                            "personal": "Personal"
+                        },
+                        "default_value": false,
+                        "return_format": "value",
+                        "multiple": 0,
+                        "allow_null": 0,
+                        "allow_in_bindings": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": "",
+                        "create_options": 0,
+                        "save_options": 0,
+                        "parent_repeater": "field_6a7a827de1219"
+                    },
+                    {
+                        "key": "field_6a7a82d5e121c",
+                        "label": "Subcategoría",
+                        "name": "rule_subcategory",
+                        "aria-label": "",
+                        "type": "select",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "choices": {
+                            "alimentos_bebidas": "Alimentos y Bebidas",
+                            "auto_transporte": "Auto y Transporte",
+                            "casetas": "Casetas",
+                            "comisiones_bancarias": "Comisiones Bancarias \/ Anualidades",
+                            "consultas_medicas": "Consultas Médicas",
+                            "cuidado_personal": "Cuidado Personal",
+                            "deporte": "Deporte",
+                            "dominios_web": "Dominios Web",
+                            "entretenimiento": "Entretenimiento",
+                            "estacionamientos": "Estacionamientos",
+                            "gasolina": "Gasolina",
+                            "gastos_familiares": "Gastos Familiares",
+                            "internet": "Internet",
+                            "licencias_software": "Licencias de Software",
+                            "medicamentos": "Medicamentos",
+                            "nomina": "Nómina",
+                            "publicidad": "Publicidad",
+                            "ropa_calzado": "Ropa y Calzado",
+                            "seguros": "Seguros",
+                            "servicios_hogar": "Servicios del Hogar",
+                            "servidores_hosting": "Servidores & Hosting",
+                            "software_plugins": "Software\/Plugins\/Temas",
+                            "super": "Súper",
+                            "suscripciones": "Suscripciones",
+                            "telefonia": "Telefonía",
+                            "viajes_hospedaje": "Viajes y Hospedaje",
+                            "pendiente": "⚠️ Pendiente de Clasificar"
+                        },
+                        "default_value": false,
+                        "return_format": "value",
+                        "multiple": 0,
+                        "allow_null": 0,
+                        "allow_in_bindings": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": "",
+                        "create_options": 0,
+                        "save_options": 0,
+                        "parent_repeater": "field_6a7a827de1219"
+                    }
+                ]
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "reglas-de-clasificacion-amex"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": 0,
+        "display_title": "",
+        "allow_ai_access": false,
+        "ai_description": ""
+    }
+]

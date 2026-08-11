@@ -415,6 +415,26 @@
                 "placeholder": "",
                 "create_options": 0,
                 "save_options": 0
+            },
+            {
+                "key": "field_6a7a8204f3f3a",
+                "label": "Fecha de Pago",
+                "name": "expense_payment_date",
+                "aria-label": "",
+                "type": "date_picker",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "display_format": "F j, Y",
+                "return_format": "Y-m-d",
+                "first_day": 1,
+                "default_to_current_date": 0,
+                "allow_in_bindings": 0
             }
         ],
         "location": [
