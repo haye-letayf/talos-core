@@ -169,7 +169,7 @@ function talos_registrar_pagina_reglas_amex() {
         acf_add_options_page( array(
             'page_title' => 'Reglas de Clasificación AMEX',
             'menu_title' => 'Reglas AMEX',
-            'menu_slug'  => 'talos-reglas-amex',
+            'menu_slug'  => 'reglas-de-clasificacion-amex',
             'capability' => 'manage_options',
             'icon_url'   => 'dashicons-money-alt',
         ) );
