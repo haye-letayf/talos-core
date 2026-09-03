@@ -347,6 +347,53 @@
                 "ui_off_text": ""
             },
             {
+                "key": "field_6a7a8215f3f3b",
+                "label": "Periodo Cubierto",
+                "name": "expense_period",
+                "aria-label": "",
+                "type": "date_picker",
+                "instructions": "Mes que cubre esta transacción. Lo llena el motor de recurrencia; en cargos de AMEX o gastos sueltos se puede dejar vacío.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "display_format": "F Y",
+                "return_format": "Y-m-d",
+                "first_day": 1,
+                "default_to_current_date": 0,
+                "allow_in_bindings": 0
+            },
+            {
+                "key": "field_6a7a8226f3f3c",
+                "label": "Plantilla de Origen",
+                "name": "expense_source_template",
+                "aria-label": "",
+                "type": "post_object",
+                "instructions": "Se llena solo cuando esta transacción fue clonada automáticamente por el motor de recurrencia a partir de un Gasto Fijo (Plantilla Recurrente).",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "post_type": [
+                    "talos_expense"
+                ],
+                "post_status": "",
+                "taxonomy": "",
+                "return_format": "id",
+                "multiple": 0,
+                "allow_null": 1,
+                "allow_in_bindings": 0,
+                "bidirectional": 0,
+                "ui": 1,
+                "bidirectional_target": []
+            },
+            {
                 "key": "field_6a7a7c6f2993a",
                 "label": "Pago",
                 "name": "",
