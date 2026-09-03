@@ -135,6 +135,29 @@
                 "allow_in_bindings": 0
             },
             {
+                "key": "field_6a7a73c1a4d5d",
+                "label": "Cantidad",
+                "name": "income_quantity",
+                "aria-label": "",
+                "type": "number",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": 1,
+                "min": 1,
+                "max": "",
+                "allow_in_bindings": 0,
+                "placeholder": "",
+                "step": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
                 "key": "field_6a7a73d3a4d53",
                 "label": "Precio Unitario",
                 "name": "income_unit_price",
