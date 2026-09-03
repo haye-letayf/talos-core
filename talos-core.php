@@ -15,6 +15,7 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/seed-reglas-amex.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/seed-catalogo-servicios.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/motor-recurrencia.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/admin-motor-recurrencia.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/admin-autofill-servicios.php';
 /**
  * =========================================================================
  * 1. REGISTRO DE MÓDULOS BASE (CUSTOM POST TYPES)
