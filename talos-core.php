@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once plugin_dir_path( __FILE__ ) . 'includes/seed-reglas-amex.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/seed-catalogo-servicios.php';
 /**
  * =========================================================================
  * 1. REGISTRO DE MÓDULOS BASE (CUSTOM POST TYPES)
