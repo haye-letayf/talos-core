@@ -139,6 +139,12 @@ function talos_registrar_reembolso_mensual( $mes_key, $monto ) {
 }
 
 function talos_procesar_csv_amex( $ruta_archivo ) {
+    // Estados de cuenta históricos pueden traer miles de renglones —
+    // le damos más margen que el límite por defecto del servidor.
+    if ( function_exists( 'set_time_limit' ) ) {
+        @set_time_limit( 300 );
+    }
+
     $handle = fopen( $ruta_archivo, 'r' );
     if ( ! $handle ) {
         return [ 'error' => 'No se pudo abrir el archivo.' ];
