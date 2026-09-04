@@ -45,12 +45,23 @@ function talos_normalizar_utf8( $texto ) {
     return $texto;
 }
 
+function talos_quitar_acentos( $texto ) {
+    $con_acento = [ 'á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'ñ', 'Ñ' ];
+    $sin_acento = [ 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'n', 'N' ];
+    return str_replace( $con_acento, $sin_acento, $texto );
+}
+
 function talos_clasificar_concepto_amex( $descripcion ) {
     $reglas = get_field( 'amex_classification_rules', 'option' );
+    $descripcion_normalizada = talos_quitar_acentos( $descripcion );
 
     if ( $reglas ) {
         foreach ( $reglas as $regla ) {
-            if ( ! empty( $regla['rule_keyword'] ) && false !== stripos( $descripcion, $regla['rule_keyword'] ) ) {
+            if ( empty( $regla['rule_keyword'] ) ) {
+                continue;
+            }
+            $keyword_normalizado = talos_quitar_acentos( $regla['rule_keyword'] );
+            if ( false !== stripos( $descripcion_normalizada, $keyword_normalizado ) ) {
                 return [
                     'categoria'    => $regla['rule_category'],
                     'subcategoria' => $regla['rule_subcategory'],
