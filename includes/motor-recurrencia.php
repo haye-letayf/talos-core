@@ -309,6 +309,7 @@ function talos_crear_transaccion_desde_plantilla( $plantilla_id, DateTime $fecha
     update_field( 'expense_description', get_field( 'expense_description', $plantilla_id ), $nuevo_id );
     update_field( 'expense_amount', get_field( 'expense_amount', $plantilla_id ), $nuevo_id );
     update_field( 'expense_frequency', get_field( 'expense_frequency', $plantilla_id ), $nuevo_id );
+    update_field( 'expense_payment_method', get_field( 'expense_payment_method', $plantilla_id ), $nuevo_id );
     update_field( 'expense_period', $fecha_periodo->format( 'Ymd' ), $nuevo_id );
     update_field( 'expense_source_template', $plantilla_id, $nuevo_id );
     update_field( 'expense_status', true, $nuevo_id );
