@@ -18,7 +18,7 @@
  * formato Ymd — así es como ACF lo guarda internamente sin importar el
  * "return_format" configurado para mostrarlo. Al LEER, cada campo regresa
  * el formato que tenga configurado su return_format (por eso las fechas de
- * Servicios vienen en d/m/Y y las de Gastos en Y-m-d) — hay que parsear
+ * Servicios y las de Gastos regresan en Y-m-d) — hay que parsear
  * cada quien con su propio formato, nunca asumir uno solo.
  *
  * Este archivo solo define funciones. No se ejecuta nada automáticamente
@@ -228,14 +228,14 @@ function talos_generar_income_del_periodo( DateTime $mes_destino ) {
                 continue;
             }
 
-            $fecha_fin = talos_parse_fecha_acf( $fila['service_end_date'] ?? '', 'd/m/Y' );
+            $fecha_fin = talos_parse_fecha_acf( $fila['service_end_date'] ?? '', 'Y-m-d' );
             if ( talos_periodo_vencido( $fecha_fin, $mes_destino ) ) {
                 $servicios[ $index ]['service_status'] = 0;
                 $hubo_cambios = true;
                 continue;
             }
 
-            $fecha_inicio = talos_parse_fecha_acf( $fila['service_start_date'] ?? '', 'd/m/Y' );
+            $fecha_inicio = talos_parse_fecha_acf( $fila['service_start_date'] ?? '', 'Y-m-d' );
             if ( ! $fecha_inicio ) {
                 continue; // sin ancla no se puede calcular recurrencia
             }
