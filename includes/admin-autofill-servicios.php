@@ -46,31 +46,30 @@ function talos_autofill_servicios_admin_footer() {
     ( function( $ ) {
         var talosCatalogoServicios = <?php echo wp_json_encode( $catalogo ); ?>;
 
-        if ( typeof acf === 'undefined' ) {
-            return;
-        }
-
-        acf.addAction( 'change_field/name=service_item', function( field ) {
-            var id = field.val();
+        // Delegado sobre el <select> nativo que Select2 deja debajo de su UI:
+        // Select2 siempre dispara 'change' ahí para mantener compatibilidad,
+        // así que no dependemos de la capa interna de eventos de ACF.
+        $( document ).on( 'change', '.acf-field[data-name="service_item"] select', function() {
+            var id = $( this ).val();
             if ( ! id || ! talosCatalogoServicios[ id ] ) {
                 return;
             }
 
             var datos = talosCatalogoServicios[ id ];
-            var $fila = field.$el.closest( '.acf-row' );
+            var $fila = $( this ).closest( '.acf-row' );
 
-            var descField  = acf.getField( $fila.find( '.acf-field[data-name="service_invoice_description"]' ) );
-            var priceField = acf.getField( $fila.find( '.acf-field[data-name="service_price"]' ) );
-            var freqField  = acf.getField( $fila.find( '.acf-field[data-name="service_frequency"]' ) );
+            var $desc = $fila.find( '.acf-field[data-name="service_invoice_description"] textarea' );
+            var $precio = $fila.find( '.acf-field[data-name="service_price"] input[type="number"]' );
+            var $frecuencia = $fila.find( '.acf-field[data-name="service_frequency"] select' );
 
-            if ( descField && datos.descripcion ) {
-                descField.val( datos.descripcion );
+            if ( $desc.length && datos.descripcion ) {
+                $desc.val( datos.descripcion ).trigger( 'change' );
             }
-            if ( priceField && datos.precio_mxn ) {
-                priceField.val( datos.precio_mxn );
+            if ( $precio.length && datos.precio_mxn ) {
+                $precio.val( datos.precio_mxn ).trigger( 'change' );
             }
-            if ( freqField && datos.frecuencia ) {
-                freqField.val( datos.frecuencia );
+            if ( $frecuencia.length && datos.frecuencia ) {
+                $frecuencia.val( datos.frecuencia ).trigger( 'change' );
             }
         } );
     } )( jQuery );
