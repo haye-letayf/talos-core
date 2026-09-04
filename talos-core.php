@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once plugin_dir_path( __FILE__ ) . 'includes/seed-reglas-amex.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/seed-reglas-amex-ampliacion-v1.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/seed-catalogo-servicios.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/motor-recurrencia.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/admin-motor-recurrencia.php';
