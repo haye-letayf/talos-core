@@ -18,6 +18,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * =========================================================================
+ * DIAGNÓSTICO TEMPORAL — quitar en cuanto se resuelva por qué los hooks de
+ * este archivo no estaban corriendo (sesión 2026-09-20). Usa error_log()
+ * nativo de PHP en vez de depender de WP_DEBUG_LOG, para no requerir tocar
+ * wp-config.php.
+ * =========================================================================
+ */
+error_log( 'TALOS_OPP_DEBUG: motor-oportunidades.php fue incluido en esta petición.' );
+
+add_action( 'acf/save_post', function ( $post_id ) {
+    error_log( 'TALOS_OPP_DEBUG: acf/save_post disparó. post_id=' . $post_id . ' post_type=' . get_post_type( $post_id ) );
+}, 1 );
+
+/**
  * 1. Referencia de cotización — se genera una sola vez, al crear.
  */
 add_action( 'acf/save_post', 'talos_generar_referencia_cotizacion', 5 );
@@ -152,6 +166,7 @@ function talos_convertir_oportunidad_ganada( $post_id ) {
     }
 
     update_field( 'company_class', 'client', $empresa_id );
+    talos_sincronizar_empresa_contactos( $empresa_id ); // cascada manual: update_field() no dispara acf/save_post
     update_post_meta( $post_id, '_talos_opportunity_converted', 1 );
 }
 
