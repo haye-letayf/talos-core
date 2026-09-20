@@ -34,6 +34,7 @@ function talos_register_core_modules() {
         'talos_team'        => ['plural' => 'Equipo', 'singular' => 'Miembro', 'icon' => 'dashicons-groups'],
         'talos_expense'     => ['plural' => 'Gastos', 'singular' => 'Gasto', 'icon' => 'dashicons-cart'],
         'talos_income'      => ['plural' => 'Ingresos', 'singular' => 'Ingreso', 'icon' => 'dashicons-money-alt'],
+        'talos_opportunity' => ['plural' => 'Oportunidades', 'singular' => 'Oportunidad', 'icon' => 'dashicons-chart-line'],
     ];
 
     foreach ( $modules as $slug => $labels ) {
