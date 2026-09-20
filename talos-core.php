@@ -18,6 +18,8 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/motor-recurrencia.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/admin-motor-recurrencia.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/admin-autofill-servicios.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/admin-importador-amex.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/motor-oportunidades.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/admin-autofill-oportunidad.php';
 /**
  * =========================================================================
  * 1. REGISTRO DE MÓDULOS BASE (CUSTOM POST TYPES)
