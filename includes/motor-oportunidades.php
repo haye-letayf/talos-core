@@ -46,14 +46,10 @@ add_action( 'acf/save_post', function ( $post_id ) {
     }
     update_option( '_talos_opp_debug_last_save', current_time( 'mysql' ) . ' (post_id=' . $post_id . ')' );
 
-    // Captura el $_POST crudo ANTES de que nada más lo toque, para ver si el
-    // navegador realmente mandó estos valores o si se pierden desde antes.
-    $post_crudo = [
-        'opportunity_stage (field_6aaf3faf9355c)'   => $_POST['acf']['field_6aaf3faf9355c'] ?? '(no vino en el POST)',
-        'quote_created_date (field_6aaf409993561)'  => $_POST['acf']['field_6aaf409993561'] ?? '(no vino en el POST)',
-        'opportunity_company (field_6aaf3f709355a)' => $_POST['acf']['field_6aaf3f709355a'] ?? '(no vino en el POST)',
-    ];
-    update_option( '_talos_opp_debug_post_crudo', $post_crudo );
+    // Volcado completo y crudo de $_POST['acf'], sin adivinar la estructura
+    // (los campos dentro de un Group podrían ir anidados bajo la key del
+    // Group en vez de planos — mejor ver la realidad que seguir asumiendo).
+    update_option( '_talos_opp_debug_post_crudo', $_POST['acf'] ?? '(no existe $_POST[acf] en absoluto)' );
 }, 1 );
 
 // Prioridad 999: corre AL FINAL de todos los hooks de este archivo, guarda
