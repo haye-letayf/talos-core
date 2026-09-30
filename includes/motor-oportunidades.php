@@ -35,6 +35,11 @@ add_filter( 'admin_footer_text', function ( $texto ) {
     return $texto . ' — TALOS_OPP_DEBUG: motor-oportunidades.php cargado (' . current_time( 'H:i:s' ) . ')';
 } );
 
+$GLOBALS['talos_opp_traza'] = [];
+function talos_opp_traza( $msg ) {
+    $GLOBALS['talos_opp_traza'][] = $msg;
+}
+
 add_action( 'acf/save_post', function ( $post_id ) {
     if ( 'talos_opportunity' !== get_post_type( $post_id ) ) {
         return;
@@ -42,13 +47,31 @@ add_action( 'acf/save_post', function ( $post_id ) {
     update_option( '_talos_opp_debug_last_save', current_time( 'mysql' ) . ' (post_id=' . $post_id . ')' );
 }, 1 );
 
+// Prioridad 999: corre AL FINAL de todos los hooks de este archivo, guarda
+// la traza acumulada para poder mostrarla en el siguiente refresh de la
+// pantalla (el admin_notices de este mismo request es DEMASIADO tarde para
+// leerla, ya se está pintando el HTML antes de que save_post termine).
+add_action( 'acf/save_post', function ( $post_id ) {
+    if ( 'talos_opportunity' !== get_post_type( $post_id ) ) {
+        return;
+    }
+    update_option( '_talos_opp_debug_traza', $GLOBALS['talos_opp_traza'] );
+}, 999 );
+
 add_action( 'admin_notices', function () {
     global $post;
     if ( ! $post || 'talos_opportunity' !== get_post_type( $post ) ) {
         return;
     }
-    $marca = get_option( '_talos_opp_debug_last_save', 'NUNCA' );
-    echo '<div class="notice notice-warning"><p><strong>TALOS_OPP_DEBUG</strong> — última vez que acf/save_post corrió para una Oportunidad: ' . esc_html( $marca ) . '</p></div>';
+    $marca  = get_option( '_talos_opp_debug_last_save', 'NUNCA' );
+    $traza  = get_option( '_talos_opp_debug_traza', [] );
+    $filtro = get_option( '_talos_opp_debug_filtro_contacto', 'NUNCA (el selector de Contacto no se ha abierto desde el último deploy)' );
+    echo '<div class="notice notice-warning"><p><strong>TALOS_OPP_DEBUG</strong> — última vez que acf/save_post corrió para una Oportunidad: ' . esc_html( $marca ) . '</p>';
+    echo '<p><strong>Filtro de Contacto</strong> — última consulta: ' . esc_html( $filtro ) . '</p>';
+    if ( $traza ) {
+        echo '<pre style="white-space:pre-wrap;">' . esc_html( implode( "\n", $traza ) ) . '</pre>';
+    }
+    echo '</div>';
 } );
 
 /**
@@ -56,13 +79,20 @@ add_action( 'admin_notices', function () {
  */
 add_action( 'acf/save_post', 'talos_generar_referencia_cotizacion', 5 );
 function talos_generar_referencia_cotizacion( $post_id ) {
+    talos_opp_traza( '1) referencia: entrando, post_type=' . get_post_type( $post_id ) );
     if ( 'talos_opportunity' !== get_post_type( $post_id ) ) {
+        talos_opp_traza( '1) referencia: SALIDA por post_type' );
         return;
     }
-    if ( ! empty( get_field( 'quote_reference', $post_id ) ) ) {
+    $actual = get_field( 'quote_reference', $post_id );
+    talos_opp_traza( '1) referencia: valor actual = ' . var_export( $actual, true ) );
+    if ( ! empty( $actual ) ) {
+        talos_opp_traza( '1) referencia: SALIDA porque ya tenía valor' );
         return;
     }
-    update_field( 'quote_reference', 'COT-' . current_time( 'YmdHi' ), $post_id );
+    $nueva = 'COT-' . current_time( 'YmdHi' );
+    $ok    = update_field( 'quote_reference', $nueva, $post_id );
+    talos_opp_traza( '1) referencia: update_field(' . $nueva . ') devolvió ' . var_export( $ok, true ) );
 }
 
 /**
@@ -71,25 +101,34 @@ function talos_generar_referencia_cotizacion( $post_id ) {
  */
 add_action( 'acf/save_post', 'talos_default_vigencia_cotizacion', 10 );
 function talos_default_vigencia_cotizacion( $post_id ) {
+    talos_opp_traza( '2) vigencia: entrando' );
     if ( 'talos_opportunity' !== get_post_type( $post_id ) ) {
+        talos_opp_traza( '2) vigencia: SALIDA por post_type' );
         return;
     }
-    if ( ! empty( get_field( 'quote_valid_until', $post_id ) ) ) {
+    $actual = get_field( 'quote_valid_until', $post_id );
+    talos_opp_traza( '2) vigencia: valor actual = ' . var_export( $actual, true ) );
+    if ( ! empty( $actual ) ) {
+        talos_opp_traza( '2) vigencia: SALIDA porque ya tenía valor' );
         return;
     }
 
     $creada = get_field( 'quote_created_date', $post_id ); // Y-m-d
+    talos_opp_traza( '2) vigencia: quote_created_date = ' . var_export( $creada, true ) );
     if ( ! $creada ) {
+        talos_opp_traza( '2) vigencia: SALIDA porque no hay fecha de creación' );
         return;
     }
 
     $fecha = DateTime::createFromFormat( 'Y-m-d', $creada );
     if ( ! $fecha ) {
+        talos_opp_traza( '2) vigencia: SALIDA porque DateTime::createFromFormat falló' );
         return;
     }
 
     $fecha->modify( '+30 days' );
-    update_field( 'quote_valid_until', $fecha->format( 'Ymd' ), $post_id );
+    $ok = update_field( 'quote_valid_until', $fecha->format( 'Ymd' ), $post_id );
+    talos_opp_traza( '2) vigencia: update_field(' . $fecha->format( 'Ymd' ) . ') devolvió ' . var_export( $ok, true ) );
 }
 
 /**
@@ -99,16 +138,25 @@ function talos_default_vigencia_cotizacion( $post_id ) {
  */
 add_action( 'acf/save_post', 'talos_marcar_fecha_envio_cotizacion', 10 );
 function talos_marcar_fecha_envio_cotizacion( $post_id ) {
+    talos_opp_traza( '3) fecha envio: entrando' );
     if ( 'talos_opportunity' !== get_post_type( $post_id ) ) {
+        talos_opp_traza( '3) fecha envio: SALIDA por post_type' );
         return;
     }
-    if ( ! get_field( 'quote_sent', $post_id ) ) {
+    $enviada = get_field( 'quote_sent', $post_id );
+    talos_opp_traza( '3) fecha envio: quote_sent = ' . var_export( $enviada, true ) );
+    if ( ! $enviada ) {
+        talos_opp_traza( '3) fecha envio: SALIDA porque quote_sent es falsy' );
         return;
     }
-    if ( ! empty( get_field( 'quote_sent_date', $post_id ) ) ) {
+    $actual = get_field( 'quote_sent_date', $post_id );
+    talos_opp_traza( '3) fecha envio: valor actual = ' . var_export( $actual, true ) );
+    if ( ! empty( $actual ) ) {
+        talos_opp_traza( '3) fecha envio: SALIDA porque ya tenía valor' );
         return;
     }
-    update_field( 'quote_sent_date', current_time( 'Ymd' ), $post_id );
+    $ok = update_field( 'quote_sent_date', current_time( 'Ymd' ), $post_id );
+    talos_opp_traza( '3) fecha envio: update_field devolvió ' . var_export( $ok, true ) );
 }
 
 /**
@@ -123,6 +171,8 @@ function talos_marcar_fecha_envio_cotizacion( $post_id ) {
 add_filter( 'acf/fields/post_object/query/key=field_6aaf40f993563', 'talos_filtrar_contactos_de_empresa', 10, 3 );
 function talos_filtrar_contactos_de_empresa( $args, $field, $post_id ) {
     $empresa_id = (int) get_field( 'opportunity_company', $post_id, false );
+
+    update_option( '_talos_opp_debug_filtro_contacto', current_time( 'mysql' ) . ' | post_id=' . var_export( $post_id, true ) . ' | empresa_id=' . $empresa_id );
 
     if ( $empresa_id ) {
         $args['meta_query'] = [
@@ -142,23 +192,34 @@ function talos_filtrar_contactos_de_empresa( $args, $field, $post_id ) {
  */
 add_action( 'acf/save_post', 'talos_convertir_oportunidad_ganada', 20 );
 function talos_convertir_oportunidad_ganada( $post_id ) {
+    talos_opp_traza( '4) ganada: entrando' );
     if ( 'talos_opportunity' !== get_post_type( $post_id ) ) {
+        talos_opp_traza( '4) ganada: SALIDA por post_type' );
         return;
     }
-    if ( 'ganada' !== get_field( 'opportunity_stage', $post_id ) ) {
+    $etapa = get_field( 'opportunity_stage', $post_id );
+    talos_opp_traza( '4) ganada: opportunity_stage = ' . var_export( $etapa, true ) );
+    if ( 'ganada' !== $etapa ) {
+        talos_opp_traza( '4) ganada: SALIDA porque etapa no es ganada' );
         return;
     }
-    if ( get_post_meta( $post_id, '_talos_opportunity_converted', true ) ) {
+    $ya_convertida = get_post_meta( $post_id, '_talos_opportunity_converted', true );
+    talos_opp_traza( '4) ganada: _talos_opportunity_converted = ' . var_export( $ya_convertida, true ) );
+    if ( $ya_convertida ) {
+        talos_opp_traza( '4) ganada: SALIDA porque ya se había convertido' );
         return;
     }
 
     // format_value=false: traemos el ID crudo, listo para reescribirlo tal cual.
     $empresa_id = (int) get_field( 'opportunity_company', $post_id, false );
+    talos_opp_traza( '4) ganada: empresa_id = ' . var_export( $empresa_id, true ) );
     if ( ! $empresa_id ) {
+        talos_opp_traza( '4) ganada: SALIDA porque no hay empresa' );
         return;
     }
 
     $conceptos = get_field( 'quote_items', $post_id, false );
+    talos_opp_traza( '4) ganada: quote_items = ' . var_export( $conceptos, true ) );
     if ( $conceptos ) {
         $servicios = get_field( 'company_services', $empresa_id ) ?: [];
 
@@ -181,13 +242,16 @@ function talos_convertir_oportunidad_ganada( $post_id ) {
             ];
         }
 
-        update_field( 'company_services', $servicios, $empresa_id );
+        $ok_servicios = update_field( 'company_services', $servicios, $empresa_id );
+        talos_opp_traza( '4) ganada: update_field(company_services) devolvió ' . var_export( $ok_servicios, true ) );
         talos_calcular_utilidad_empresa( $empresa_id ); // reutiliza el cálculo ya existente
     }
 
-    update_field( 'company_class', 'client', $empresa_id );
+    $ok_clase = update_field( 'company_class', 'client', $empresa_id );
+    talos_opp_traza( '4) ganada: update_field(company_class) devolvió ' . var_export( $ok_clase, true ) );
     talos_sincronizar_empresa_contactos( $empresa_id ); // cascada manual: update_field() no dispara acf/save_post
     update_post_meta( $post_id, '_talos_opportunity_converted', 1 );
+    talos_opp_traza( '4) ganada: TERMINÓ completo' );
 }
 
 /**
