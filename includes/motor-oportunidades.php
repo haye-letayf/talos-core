@@ -45,6 +45,15 @@ add_action( 'acf/save_post', function ( $post_id ) {
         return;
     }
     update_option( '_talos_opp_debug_last_save', current_time( 'mysql' ) . ' (post_id=' . $post_id . ')' );
+
+    // Captura el $_POST crudo ANTES de que nada más lo toque, para ver si el
+    // navegador realmente mandó estos valores o si se pierden desde antes.
+    $post_crudo = [
+        'opportunity_stage (field_6aaf3faf9355c)'   => $_POST['acf']['field_6aaf3faf9355c'] ?? '(no vino en el POST)',
+        'quote_created_date (field_6aaf409993561)'  => $_POST['acf']['field_6aaf409993561'] ?? '(no vino en el POST)',
+        'opportunity_company (field_6aaf3f709355a)' => $_POST['acf']['field_6aaf3f709355a'] ?? '(no vino en el POST)',
+    ];
+    update_option( '_talos_opp_debug_post_crudo', $post_crudo );
 }, 1 );
 
 // Prioridad 999: corre AL FINAL de todos los hooks de este archivo, guarda
@@ -63,11 +72,15 @@ add_action( 'admin_notices', function () {
     if ( ! $post || 'talos_opportunity' !== get_post_type( $post ) ) {
         return;
     }
-    $marca  = get_option( '_talos_opp_debug_last_save', 'NUNCA' );
-    $traza  = get_option( '_talos_opp_debug_traza', [] );
-    $filtro = get_option( '_talos_opp_debug_filtro_contacto', 'NUNCA (el selector de Contacto no se ha abierto desde el último deploy)' );
+    $marca      = get_option( '_talos_opp_debug_last_save', 'NUNCA' );
+    $traza      = get_option( '_talos_opp_debug_traza', [] );
+    $filtro     = get_option( '_talos_opp_debug_filtro_contacto', 'NUNCA (el selector de Contacto no se ha abierto desde el último deploy)' );
+    $post_crudo = get_option( '_talos_opp_debug_post_crudo', [] );
     echo '<div class="notice notice-warning"><p><strong>TALOS_OPP_DEBUG</strong> — última vez que acf/save_post corrió para una Oportunidad: ' . esc_html( $marca ) . '</p>';
     echo '<p><strong>Filtro de Contacto</strong> — última consulta: ' . esc_html( $filtro ) . '</p>';
+    if ( $post_crudo ) {
+        echo '<p><strong>$_POST crudo al momento de guardar:</strong></p><pre style="white-space:pre-wrap;">' . esc_html( var_export( $post_crudo, true ) ) . '</pre>';
+    }
     if ( $traza ) {
         echo '<pre style="white-space:pre-wrap;">' . esc_html( implode( "\n", $traza ) ) . '</pre>';
     }
