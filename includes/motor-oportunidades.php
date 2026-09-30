@@ -20,16 +20,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * =========================================================================
  * DIAGNÓSTICO TEMPORAL — quitar en cuanto se resuelva por qué los hooks de
- * este archivo no estaban corriendo (sesión 2026-09-20). Usa error_log()
- * nativo de PHP en vez de depender de WP_DEBUG_LOG, para no requerir tocar
- * wp-config.php.
+ * este archivo no estaban corriendo (sesión 2026-09-20). El error_log() no
+ * llegó a ningún lado accesible en este hosting, así que esta versión pinta
+ * la evidencia directo en pantalla dentro de wp-admin, sin depender de logs:
+ *
+ *  - Pie de página de TODO wp-admin: confirma que este archivo se incluyó
+ *    en la petición (independiente de cualquier hook de ACF).
+ *  - Aviso amarillo en la pantalla de edición de una Oportunidad: confirma
+ *    si acf/save_post realmente disparó al guardar, y cuándo fue la
+ *    última vez.
  * =========================================================================
  */
-error_log( 'TALOS_OPP_DEBUG: motor-oportunidades.php fue incluido en esta petición.' );
+add_filter( 'admin_footer_text', function ( $texto ) {
+    return $texto . ' — TALOS_OPP_DEBUG: motor-oportunidades.php cargado (' . current_time( 'H:i:s' ) . ')';
+} );
 
 add_action( 'acf/save_post', function ( $post_id ) {
-    error_log( 'TALOS_OPP_DEBUG: acf/save_post disparó. post_id=' . $post_id . ' post_type=' . get_post_type( $post_id ) );
+    if ( 'talos_opportunity' !== get_post_type( $post_id ) ) {
+        return;
+    }
+    update_option( '_talos_opp_debug_last_save', current_time( 'mysql' ) . ' (post_id=' . $post_id . ')' );
 }, 1 );
+
+add_action( 'admin_notices', function () {
+    global $post;
+    if ( ! $post || 'talos_opportunity' !== get_post_type( $post ) ) {
+        return;
+    }
+    $marca = get_option( '_talos_opp_debug_last_save', 'NUNCA' );
+    echo '<div class="notice notice-warning"><p><strong>TALOS_OPP_DEBUG</strong> — última vez que acf/save_post corrió para una Oportunidad: ' . esc_html( $marca ) . '</p></div>';
+} );
 
 /**
  * 1. Referencia de cotización — se genera una sola vez, al crear.
