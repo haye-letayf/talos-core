@@ -227,14 +227,23 @@ function talos_convertir_oportunidad_ganada( $post_id ) {
         return;
     }
 
-    $conceptos = get_field( 'quote_items', $post_id, false );
+    // Sin format_value=false aquí: en un repetidor eso regresa el array
+    // indexado por field KEY en vez de por nombre (confirmado en pruebas) —
+    // con el formato normal sí regresa por nombre, igual que en el resto
+    // del código existente.
+    $conceptos = get_field( 'quote_items', $post_id );
     talos_opp_traza( '4) ganada: quote_items = ' . var_export( $conceptos, true ) );
     if ( $conceptos ) {
         $servicios = get_field( 'company_services', $empresa_id ) ?: [];
 
         foreach ( $conceptos as $item ) {
+            // Igual que en motor-recurrencia.php: con format_value=true, post_object
+            // regresa el WP_Post completo — extraemos el ID crudo a mano.
+            $servicio_obj = $item['service_item'] ?? null;
+            $servicio_id  = ( $servicio_obj instanceof WP_Post ) ? $servicio_obj->ID : (int) $servicio_obj;
+
             $servicios[] = [
-                'service_item'                => $item['service_item'] ?? null,
+                'service_item'                => $servicio_id,
                 'service_invoice_description' => $item['service_invoice_description'] ?? '',
                 'service_frequency'           => $item['service_frequency'] ?? '',
                 'service_quantity'            => $item['service_quantity'] ?? 1,
