@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Talos Core ERP
  * Description: Infraestructura central, Custom Post Types y lógica relacional para Talos 2.0.
- * Version: 2.2.2
+ * Version: 2.2.3
  * Author: Once24
  */
 
@@ -20,6 +20,7 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/admin-autofill-servicios.ph
 require_once plugin_dir_path( __FILE__ ) . 'includes/admin-importador-amex.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/motor-oportunidades.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/admin-autofill-oportunidad.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/roles.php';
 /**
  * =========================================================================
  * 1. REGISTRO DE MÓDULOS BASE (CUSTOM POST TYPES)
