@@ -226,7 +226,6 @@ function talos_crear_income_desde_servicio( $empresa_id, array $fila, $servicio_
     update_field( 'income_service', $servicio_id, $nuevo_id );
     update_field( 'income_description', $descripcion, $nuevo_id );
     update_field( 'income_month', $fecha_cobro->format( 'Ymd' ), $nuevo_id );
-    update_field( 'income_quantity', $cantidad, $nuevo_id );
     update_field( 'income_unit_price', $precio, $nuevo_id );
     update_field( 'income_applies_iva', $aplica_iva, $nuevo_id );
     update_field( 'income_subtotal', $subtotal, $nuevo_id );

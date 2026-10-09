@@ -127,7 +127,6 @@ function talos_registrar_reembolso_mensual( $mes_key, $monto ) {
 
     update_field( 'income_description', 'Reembolso Tarjeta Adicional (' . TALOS_AMEX_TITULAR_REEMBOLSO . ')', $income_id );
     update_field( 'income_month', $fecha_mes->format( 'Ymd' ), $income_id );
-    update_field( 'income_quantity', 1, $income_id );
     update_field( 'income_unit_price', $monto, $income_id );
     update_field( 'income_applies_iva', false, $income_id );
     update_field( 'income_subtotal', $monto, $income_id );
