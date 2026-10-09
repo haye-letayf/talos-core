@@ -146,6 +146,38 @@ function talos_leyenda_pago_x_de_y( ?DateTime $inicio, ?DateTime $fin, DateTime 
 
 /**
  * =========================================================================
+ * NORMALIZACIÓN DE INCOME AL GUARDAR
+ * =========================================================================
+ * Antes, el default de income_month y el recálculo de subtotal/total solo
+ * vivían dentro del editor en línea del front (talos_ajax_actualizar_campo_income
+ * en talos-theme) — un Ingreso creado o editado directo en wp-admin se quedaba
+ * sin mes (desaparecía de todos los cuadros de resumen, sin aviso) y con
+ * Total en $0 hasta que alguien lo tocara desde el front. Se mueve aquí para
+ * que corra en cualquier guardado real de un talos_income, sin importar el
+ * origen — wp-admin, o el editor en línea (que ahora dispara acf/save_post
+ * en vez de duplicar esta misma cuenta).
+ */
+add_action( 'acf/save_post', 'talos_normalizar_income_al_guardar', 20 );
+function talos_normalizar_income_al_guardar( $post_id ) {
+    if ( 'talos_income' !== get_post_type( $post_id ) ) {
+        return;
+    }
+
+    if ( empty( get_field( 'income_month', $post_id ) ) ) {
+        update_field( 'income_month', current_time( 'Ymd' ), $post_id );
+    }
+
+    $precio     = (float) get_field( 'income_unit_price', $post_id );
+    $aplica_iva = ( 'factura' === get_field( 'income_doc_type', $post_id ) );
+    $subtotal   = $precio;
+    $total      = $aplica_iva ? round( $subtotal * 1.16, 2 ) : $subtotal;
+    update_field( 'income_subtotal', $subtotal, $post_id );
+    update_field( 'income_total', $total, $post_id );
+    update_field( 'income_applies_iva', $aplica_iva ? 1 : 0, $post_id );
+}
+
+/**
+ * =========================================================================
  * GENERADOR DE INCOME (Empresas -> company_services -> talos_income)
  * =========================================================================
  */
