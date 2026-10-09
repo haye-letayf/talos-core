@@ -175,11 +175,11 @@
             },
             {
                 "key": "field_b17c900000008",
-                "label": "Fecha de Entrega",
-                "name": "request_due_date",
+                "label": "Fecha de Solicitud",
+                "name": "request_date",
                 "aria-label": "",
                 "type": "date_picker",
-                "instructions": "",
+                "instructions": "Cuándo la pidió el cliente — hoy o una fecha anterior, nunca futura.",
                 "required": 1,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -190,6 +190,27 @@
                 "display_format": "d/m/Y",
                 "return_format": "Y-m-d",
                 "first_day": 1,
+                "default_to_current_date": 0,
+                "allow_in_bindings": 0
+            },
+            {
+                "key": "field_b17c90000000b",
+                "label": "Fecha de Entrega",
+                "name": "request_completed_date",
+                "aria-label": "",
+                "type": "date_picker",
+                "instructions": "Se registra sola el día que la petición se mueve a Completada — no se captura a mano.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "display_format": "d/m/Y",
+                "return_format": "Y-m-d",
+                "first_day": 1,
+                "default_to_current_date": 0,
                 "allow_in_bindings": 0
             },
             {
