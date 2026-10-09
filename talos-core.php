@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Talos Core ERP
  * Description: Infraestructura central, Custom Post Types y lógica relacional para Talos 2.0.
- * Version: 2.2.6
+ * Version: 2.2.7
  * Author: Once24
  */
 
@@ -39,6 +39,7 @@ function talos_register_core_modules() {
         'talos_expense'     => ['plural' => 'Gastos', 'singular' => 'Gasto', 'icon' => 'dashicons-cart'],
         'talos_income'      => ['plural' => 'Ingresos', 'singular' => 'Ingreso', 'icon' => 'dashicons-money-alt'],
         'talos_opportunity' => ['plural' => 'Oportunidades', 'singular' => 'Oportunidad', 'icon' => 'dashicons-chart-line'],
+        'talos_request'     => ['plural' => 'Bitácora', 'singular' => 'Petición', 'icon' => 'dashicons-clipboard'],
     ];
 
     foreach ( $modules as $slug => $labels ) {
