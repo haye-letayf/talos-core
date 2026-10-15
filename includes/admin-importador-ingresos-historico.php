@@ -211,9 +211,36 @@ function talos_diagnostico_ingresos_historico() {
          WHERE m.meta_key = 'income_month' AND p.post_type = 'talos_income' AND p.post_status != 'trash'"
     );
 
+    // Duplicado REAL = misma Empresa + mismo mes + mismo Total, una vez creado
+    // por este importador y otra vez por cualquier otro origen -- esto no
+    // depende del titulo del post, compara por contenido.
+    $posibles_duplicados = $wpdb->get_results(
+        "SELECT mios.post_id AS mio_id, otros.post_id AS otro_id,
+                mios.company AS empresa, mios.mes, mios.total
+         FROM (
+             SELECT p.ID AS post_id, c.meta_value AS company, mo.meta_value AS mes, t.meta_value AS total
+             FROM {$wpdb->posts} p
+             INNER JOIN {$wpdb->postmeta} fp ON fp.post_id = p.ID AND fp.meta_key = '_talos_historico_fingerprint'
+             INNER JOIN {$wpdb->postmeta} c  ON c.post_id  = p.ID AND c.meta_key  = 'income_company'
+             INNER JOIN {$wpdb->postmeta} mo ON mo.post_id = p.ID AND mo.meta_key = 'income_month'
+             INNER JOIN {$wpdb->postmeta} t  ON t.post_id  = p.ID AND t.meta_key  = 'income_total'
+             WHERE p.post_type = 'talos_income' AND p.post_status != 'trash' AND c.meta_value != ''
+         ) mios
+         INNER JOIN (
+             SELECT p.ID AS post_id, c.meta_value AS company, mo.meta_value AS mes, t.meta_value AS total
+             FROM {$wpdb->posts} p
+             LEFT JOIN {$wpdb->postmeta} fp ON fp.post_id = p.ID AND fp.meta_key = '_talos_historico_fingerprint'
+             INNER JOIN {$wpdb->postmeta} c  ON c.post_id  = p.ID AND c.meta_key  = 'income_company'
+             INNER JOIN {$wpdb->postmeta} mo ON mo.post_id = p.ID AND mo.meta_key = 'income_month'
+             INNER JOIN {$wpdb->postmeta} t  ON t.post_id  = p.ID AND t.meta_key  = 'income_total'
+             WHERE p.post_type = 'talos_income' AND p.post_status != 'trash' AND fp.meta_id IS NULL AND c.meta_value != ''
+         ) otros ON otros.company = mios.company AND otros.mes = mios.mes AND otros.total = mios.total"
+    );
+
     return [
         'total'                 => $total,
         'de_este_importador'    => $de_este_importador,
+        'posibles_duplicados'   => $posibles_duplicados,
         'del_motor_recurrencia' => $del_motor_recurrencia,
         'otros'                 => $total - $de_este_importador - $del_motor_recurrencia,
         'mes_min'               => $rango->min_mes ?? '',
@@ -248,7 +275,23 @@ function talos_render_pagina_importador_ingresos_historico() {
                 <li>Generados por el motor de recurrencia ("Income YYYY-MM-DD - Empresa #ID"): <strong><?php echo (int) $diag['del_motor_recurrencia']; ?></strong></li>
                 <li>Otros (manuales, u otro origen): <strong><?php echo (int) $diag['otros']; ?></strong></li>
                 <li>Rango de meses (income_month) ya presentes: <strong><?php echo esc_html( $diag['mes_min'] ?: '—' ); ?></strong> a <strong><?php echo esc_html( $diag['mes_max'] ?: '—' ); ?></strong></li>
+                <li>Posibles duplicados reales (misma Empresa + mes + Total, uno de este importador y otro de otro origen): <strong><?php echo count( $diag['posibles_duplicados'] ); ?></strong></li>
             </ul>
+            <?php if ( ! empty( $diag['posibles_duplicados'] ) ) : ?>
+                <p><strong>Primeros <?php echo min( 15, count( $diag['posibles_duplicados'] ) ); ?> ejemplos (Empresa ID / Mes / Total / post mío / post otro):</strong></p>
+                <table class="widefat" style="max-width: 700px;">
+                    <tr><th>Empresa</th><th>Mes</th><th>Total</th><th>Post mío</th><th>Post otro</th></tr>
+                    <?php foreach ( array_slice( $diag['posibles_duplicados'], 0, 15 ) as $d ) : ?>
+                        <tr>
+                            <td><?php echo esc_html( $d->empresa ); ?></td>
+                            <td><?php echo esc_html( $d->mes ); ?></td>
+                            <td><?php echo esc_html( $d->total ); ?></td>
+                            <td><?php echo (int) $d->mio_id; ?></td>
+                            <td><?php echo (int) $d->otro_id; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            <?php endif; ?>
         </div>
 
         <p>
