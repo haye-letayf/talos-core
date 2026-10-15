@@ -233,6 +233,9 @@ function talos_diagnostico_ingresos_historico() {
         $por_post[ $f->post_id ][ $f->meta_key ] = $f->meta_value;
     }
 
+    // "13920" vs "13920.000" son el mismo numero pero texto distinto -- hay
+    // que normalizar el Total a 2 decimales antes de comparar, si no la
+    // comparacion de texto nunca los va a ver iguales aunque lo sean.
     $mios_por_clave  = [];
     $otros_por_clave = [];
     foreach ( $por_post as $post_id => $d ) {
@@ -240,7 +243,8 @@ function talos_diagnostico_ingresos_historico() {
         if ( '' === $empresa ) {
             continue;
         }
-        $clave = $empresa . '|' . ( $d['income_month'] ?? '' ) . '|' . ( $d['income_total'] ?? '' );
+        $total_norm = number_format( (float) ( $d['income_total'] ?? 0 ), 2, '.', '' );
+        $clave = $empresa . '|' . ( $d['income_month'] ?? '' ) . '|' . $total_norm;
         if ( ! empty( $d['es_mio'] ) ) {
             $mios_por_clave[ $clave ] = $post_id;
         } else {
