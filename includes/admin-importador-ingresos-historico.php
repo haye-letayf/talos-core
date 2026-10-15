@@ -259,8 +259,35 @@ function talos_diagnostico_ingresos_historico() {
         }
     }
 
+    // Desglose de "Otros" -- sin pegarle otra vez a la base, usando lo que
+    // ya se trajo arriba. Si tienen Empresa vacia, la comparacion de arriba
+    // nunca los pudo ver como duplicados aunque lo fueran.
+    $otros_con_empresa    = 0;
+    $otros_sin_empresa    = 0;
+    $muestra_otros        = [];
+    foreach ( $por_post as $post_id => $d ) {
+        if ( ! empty( $d['es_mio'] ) ) {
+            continue;
+        }
+        $empresa = $d['income_company'] ?? '';
+        if ( '' === $empresa ) {
+            $otros_sin_empresa++;
+        } else {
+            $otros_con_empresa++;
+            if ( count( $muestra_otros ) < 15 ) {
+                $muestra_otros[] = (object) [
+                    'post_id' => $post_id, 'empresa' => $empresa,
+                    'mes' => $d['income_month'] ?? '', 'total' => $d['income_total'] ?? '',
+                ];
+            }
+        }
+    }
+
     return [
         'total'                 => $total,
+        'otros_con_empresa'     => $otros_con_empresa,
+        'otros_sin_empresa'     => $otros_sin_empresa,
+        'muestra_otros'         => $muestra_otros,
         'de_este_importador'    => $de_este_importador,
         'posibles_duplicados'   => $posibles_duplicados,
         'del_motor_recurrencia' => $del_motor_recurrencia,
@@ -298,7 +325,22 @@ function talos_render_pagina_importador_ingresos_historico() {
                 <li>Otros (manuales, u otro origen): <strong><?php echo (int) $diag['otros']; ?></strong></li>
                 <li>Rango de meses (income_month) ya presentes: <strong><?php echo esc_html( $diag['mes_min'] ?: '—' ); ?></strong> a <strong><?php echo esc_html( $diag['mes_max'] ?: '—' ); ?></strong></li>
                 <li>Posibles duplicados reales (misma Empresa + mes + Total, uno de este importador y otro de otro origen): <strong><?php echo count( $diag['posibles_duplicados'] ); ?></strong></li>
+                <li>De los "Otros": <strong><?php echo (int) $diag['otros_con_empresa']; ?></strong> sí tienen Empresa ligada, <strong><?php echo (int) $diag['otros_sin_empresa']; ?></strong> NO tienen Empresa (por eso nunca pudieron compararse arriba, aunque fueran duplicados)</li>
             </ul>
+            <?php if ( ! empty( $diag['muestra_otros'] ) ) : ?>
+                <p><strong>Muestra de "Otros" CON empresa (post ID / Empresa ID / Mes / Total):</strong></p>
+                <table class="widefat" style="max-width: 700px;">
+                    <tr><th>Post ID</th><th>Empresa ID</th><th>Mes</th><th>Total</th></tr>
+                    <?php foreach ( $diag['muestra_otros'] as $d ) : ?>
+                        <tr>
+                            <td><?php echo (int) $d->post_id; ?></td>
+                            <td><?php echo esc_html( $d->empresa ); ?></td>
+                            <td><?php echo esc_html( $d->mes ); ?></td>
+                            <td><?php echo esc_html( $d->total ); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            <?php endif; ?>
             <?php if ( ! empty( $diag['posibles_duplicados'] ) ) : ?>
                 <p><strong>Primeros <?php echo min( 15, count( $diag['posibles_duplicados'] ) ); ?> ejemplos (Empresa ID / Mes / Total / post mío / post otro):</strong></p>
                 <table class="widefat" style="max-width: 700px;">
