@@ -213,29 +213,51 @@ function talos_diagnostico_ingresos_historico() {
 
     // Duplicado REAL = misma Empresa + mismo mes + mismo Total, una vez creado
     // por este importador y otra vez por cualquier otro origen -- esto no
-    // depende del titulo del post, compara por contenido.
-    $posibles_duplicados = $wpdb->get_results(
-        "SELECT mios.post_id AS mio_id, otros.post_id AS otro_id,
-                mios.company AS empresa, mios.mes, mios.total
-         FROM (
-             SELECT p.ID AS post_id, c.meta_value AS company, mo.meta_value AS mes, t.meta_value AS total
-             FROM {$wpdb->posts} p
-             INNER JOIN {$wpdb->postmeta} fp ON fp.post_id = p.ID AND fp.meta_key = '_talos_historico_fingerprint'
-             INNER JOIN {$wpdb->postmeta} c  ON c.post_id  = p.ID AND c.meta_key  = 'income_company'
-             INNER JOIN {$wpdb->postmeta} mo ON mo.post_id = p.ID AND mo.meta_key = 'income_month'
-             INNER JOIN {$wpdb->postmeta} t  ON t.post_id  = p.ID AND t.meta_key  = 'income_total'
-             WHERE p.post_type = 'talos_income' AND p.post_status != 'trash' AND c.meta_value != ''
-         ) mios
-         INNER JOIN (
-             SELECT p.ID AS post_id, c.meta_value AS company, mo.meta_value AS mes, t.meta_value AS total
-             FROM {$wpdb->posts} p
-             LEFT JOIN {$wpdb->postmeta} fp ON fp.post_id = p.ID AND fp.meta_key = '_talos_historico_fingerprint'
-             INNER JOIN {$wpdb->postmeta} c  ON c.post_id  = p.ID AND c.meta_key  = 'income_company'
-             INNER JOIN {$wpdb->postmeta} mo ON mo.post_id = p.ID AND mo.meta_key = 'income_month'
-             INNER JOIN {$wpdb->postmeta} t  ON t.post_id  = p.ID AND t.meta_key  = 'income_total'
-             WHERE p.post_type = 'talos_income' AND p.post_status != 'trash' AND fp.meta_id IS NULL AND c.meta_value != ''
-         ) otros ON otros.company = mios.company AND otros.mes = mios.mes AND otros.total = mios.total"
+    // depende del titulo del post, compara por contenido. Se hace en dos
+    // consultas planas (sin cruzar en SQL) y se compara en PHP -- un JOIN
+    // de 3 vias contra si misma sobre postmeta se cuelga en hosting
+    // compartido con ~3000 posts x ~15 filas de meta cada uno.
+    $filas_meta = $wpdb->get_results(
+        "SELECT p.ID AS post_id, m.meta_key, m.meta_value,
+                (fp.meta_id IS NOT NULL) AS es_mio
+         FROM {$wpdb->posts} p
+         INNER JOIN {$wpdb->postmeta} m ON m.post_id = p.ID
+            AND m.meta_key IN ('income_company', 'income_month', 'income_total')
+         LEFT JOIN {$wpdb->postmeta} fp ON fp.post_id = p.ID AND fp.meta_key = '_talos_historico_fingerprint'
+         WHERE p.post_type = 'talos_income' AND p.post_status != 'trash'"
     );
+
+    $por_post = [];
+    foreach ( $filas_meta as $f ) {
+        $por_post[ $f->post_id ]['es_mio'] = (bool) $f->es_mio;
+        $por_post[ $f->post_id ][ $f->meta_key ] = $f->meta_value;
+    }
+
+    $mios_por_clave  = [];
+    $otros_por_clave = [];
+    foreach ( $por_post as $post_id => $d ) {
+        $empresa = $d['income_company'] ?? '';
+        if ( '' === $empresa ) {
+            continue;
+        }
+        $clave = $empresa . '|' . ( $d['income_month'] ?? '' ) . '|' . ( $d['income_total'] ?? '' );
+        if ( ! empty( $d['es_mio'] ) ) {
+            $mios_por_clave[ $clave ] = $post_id;
+        } else {
+            $otros_por_clave[ $clave ] = $post_id;
+        }
+    }
+
+    $posibles_duplicados = [];
+    foreach ( $mios_por_clave as $clave => $mio_id ) {
+        if ( isset( $otros_por_clave[ $clave ] ) ) {
+            [ $empresa, $mes, $total ] = explode( '|', $clave );
+            $posibles_duplicados[] = (object) [
+                'mio_id' => $mio_id, 'otro_id' => $otros_por_clave[ $clave ],
+                'empresa' => $empresa, 'mes' => $mes, 'total' => $total,
+            ];
+        }
+    }
 
     return [
         'total'                 => $total,

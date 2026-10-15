@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Talos Core ERP
  * Description: Infraestructura central, Custom Post Types y lógica relacional para Talos 2.0.
- * Version: 2.3.3
+ * Version: 2.3.4
  * Author: Once24
  */
 
