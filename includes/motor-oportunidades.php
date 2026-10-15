@@ -118,14 +118,14 @@ function talos_filtrar_contactos_de_empresa( $args, $field, $post_id ) {
 
 /**
  * 5. Conversión a Cliente — cuando la Etapa pasa a "Ganada": crea un post
- * talos_company_service por cada fila de quote_items (colapsando el
+ * talos_contract por cada fila de quote_items (colapsando el
  * descuento del concepto en el Precio final), ligado a la Empresa via
  * service_company, y sube company_class a "client". Idempotente vía meta
  * interno _talos_opportunity_converted, para no duplicar si la Oportunidad
  * se vuelve a guardar.
  *
  * Antes escribia al repetidor company_services; migrado a CPT propio
- * (talos_company_service) -- ver [[feedback_talos_no_repeaters]].
+ * (talos_contract) -- ver [[feedback_talos_no_repeaters]].
  */
 add_action( 'acf/save_post', 'talos_convertir_oportunidad_ganada', 20 );
 function talos_convertir_oportunidad_ganada( $post_id ) {
@@ -154,7 +154,7 @@ function talos_convertir_oportunidad_ganada( $post_id ) {
 
             $nuevo_id = wp_insert_post( [
                 'post_title'  => sprintf( '%s - Empresa #%d (desde Oportunidad #%d)', $item['service_invoice_description'] ?? 'Servicio', $empresa_id, $post_id ),
-                'post_type'   => 'talos_company_service',
+                'post_type'   => 'talos_contract',
                 'post_status' => 'publish',
             ] );
             if ( is_wp_error( $nuevo_id ) || ! $nuevo_id ) {

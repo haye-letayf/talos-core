@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Talos Core ERP
  * Description: Infraestructura central, Custom Post Types y lógica relacional para Talos 2.0.
- * Version: 2.4.0
+ * Version: 2.4.1
  * Author: Once24
  */
 
@@ -36,7 +36,7 @@ function talos_register_core_modules() {
     // Nuestro mapa definitivo de módulos
     $modules = [
         'talos_company'     => ['plural' => 'Empresas', 'singular' => 'Empresa', 'icon' => 'dashicons-building'],
-        'talos_company_service' => ['plural' => 'Servicios Contratados', 'singular' => 'Servicio Contratado', 'icon' => 'dashicons-admin-links'],
+        'talos_contract' => ['plural' => 'Servicios Contratados', 'singular' => 'Servicio Contratado', 'icon' => 'dashicons-admin-links'],
         'talos_contact'     => ['plural' => 'Contactos', 'singular' => 'Contacto', 'icon' => 'dashicons-id-alt'],
         'talos_service_cat' => ['plural' => 'Cat. Servicios', 'singular' => 'Servicio', 'icon' => 'dashicons-hammer'],
         'talos_team'        => ['plural' => 'Equipo', 'singular' => 'Miembro', 'icon' => 'dashicons-groups'],
@@ -101,14 +101,14 @@ function talos_acf_json_load_point( $paths ) {
  * 3. AUTOMATIZACIONES Y CÁLCULOS (MÓDULO EMPRESAS)
  * =========================================================================
  */
-// Ex-repetidor company_services, migrado a CPT propio (talos_company_service)
+// Ex-repetidor company_services, migrado a CPT propio (talos_contract)
 // -- un post por servicio contratado, ligado a su Empresa via service_company.
 // Motivo: un repetidor ACF se guarda como array serializado por indice, lo
 // que lo hace fragil para importar (un CSV fuera de orden descompone todo)
 // y dificil de consultar/filtrar en el front. Ver [[feedback_talos_no_repeaters]].
 add_action('acf/save_post', 'talos_calcular_utilidad_servicio_contratado', 20);
 function talos_calcular_utilidad_servicio_contratado( $post_id ) {
-    if ( get_post_type( $post_id ) !== 'talos_company_service' ) {
+    if ( get_post_type( $post_id ) !== 'talos_contract' ) {
         return;
     }
 

@@ -240,12 +240,12 @@ function talos_generar_income_del_periodo( DateTime $mes_destino ) {
     $creados      = 0;
     $desactivados = 0;
 
-    // company_services (repetidor en Empresa) -> talos_company_service (CPT
+    // company_services (repetidor en Empresa) -> talos_contract (CPT
     // propio, un post por servicio, ligado via service_company). Cada fila
     // es ahora su propio post; se consulta directo en vez de recorrer el
     // repetidor Empresa por Empresa.
     $contratados = get_posts( [
-        'post_type'      => 'talos_company_service',
+        'post_type'      => 'talos_contract',
         'post_status'    => 'publish',
         'posts_per_page' => -1,
     ] );
