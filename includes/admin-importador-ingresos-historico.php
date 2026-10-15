@@ -184,6 +184,43 @@ function talos_procesar_csv_ingresos_historico( $ruta_archivo ) {
     ];
 }
 
+function talos_diagnostico_ingresos_historico() {
+    global $wpdb;
+
+    $total = (int) $wpdb->get_var(
+        "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'talos_income' AND post_status != 'trash'"
+    );
+
+    $de_este_importador = (int) $wpdb->get_var(
+        "SELECT COUNT(*) FROM {$wpdb->posts} p
+         INNER JOIN {$wpdb->postmeta} m ON m.post_id = p.ID AND m.meta_key = '_talos_historico_fingerprint'
+         WHERE p.post_type = 'talos_income' AND p.post_status != 'trash'"
+    );
+
+    $del_motor_recurrencia = (int) $wpdb->get_var(
+        $wpdb->prepare(
+            "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'talos_income' AND post_status != 'trash' AND post_title LIKE %s",
+            'Income %'
+        )
+    );
+
+    $rango = $wpdb->get_row(
+        "SELECT MIN(m.meta_value) AS min_mes, MAX(m.meta_value) AS max_mes
+         FROM {$wpdb->postmeta} m
+         INNER JOIN {$wpdb->posts} p ON p.ID = m.post_id
+         WHERE m.meta_key = 'income_month' AND p.post_type = 'talos_income' AND p.post_status != 'trash'"
+    );
+
+    return [
+        'total'                 => $total,
+        'de_este_importador'    => $de_este_importador,
+        'del_motor_recurrencia' => $del_motor_recurrencia,
+        'otros'                 => $total - $de_este_importador - $del_motor_recurrencia,
+        'mes_min'               => $rango->min_mes ?? '',
+        'mes_max'               => $rango->max_mes ?? '',
+    ];
+}
+
 function talos_render_pagina_importador_ingresos_historico() {
     if ( ! current_user_can( 'manage_options' ) ) {
         wp_die( 'No tienes permiso para ver esta página.' );
@@ -199,8 +236,21 @@ function talos_render_pagina_importador_ingresos_historico() {
         }
     }
     ?>
+    <?php $diag = talos_diagnostico_ingresos_historico(); ?>
     <div class="wrap">
         <h1>Importar Ingresos Históricos</h1>
+
+        <div class="notice notice-info" style="padding: 10px 15px;">
+            <p><strong>Diagnóstico actual (antes de subir nada):</strong></p>
+            <ul style="list-style: disc; margin-left: 20px;">
+                <li>Total de posts Ingreso (talos_income) en Talos: <strong><?php echo (int) $diag['total']; ?></strong></li>
+                <li>Creados por este importador (huella histórica): <strong><?php echo (int) $diag['de_este_importador']; ?></strong></li>
+                <li>Generados por el motor de recurrencia ("Income YYYY-MM-DD - Empresa #ID"): <strong><?php echo (int) $diag['del_motor_recurrencia']; ?></strong></li>
+                <li>Otros (manuales, u otro origen): <strong><?php echo (int) $diag['otros']; ?></strong></li>
+                <li>Rango de meses (income_month) ya presentes: <strong><?php echo esc_html( $diag['mes_min'] ?: '—' ); ?></strong> a <strong><?php echo esc_html( $diag['mes_max'] ?: '—' ); ?></strong></li>
+            </ul>
+        </div>
+
         <p>
             Sube <code>ingresos_maestro.csv</code> tal como lo genera el script, sin editar columnas. Crea un Ingreso
             por renglón, ligado a Empresa/Servicio cuando el CSV trae su ID. Si una fila no trae ID de Empresa, el
