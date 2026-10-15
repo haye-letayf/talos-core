@@ -240,57 +240,62 @@ function talos_generar_income_del_periodo( DateTime $mes_destino ) {
     $creados      = 0;
     $desactivados = 0;
 
-    $empresas = get_posts( [
-        'post_type'      => 'talos_company',
+    // company_services (repetidor en Empresa) -> talos_company_service (CPT
+    // propio, un post por servicio, ligado via service_company). Cada fila
+    // es ahora su propio post; se consulta directo en vez de recorrer el
+    // repetidor Empresa por Empresa.
+    $contratados = get_posts( [
+        'post_type'      => 'talos_company_service',
         'post_status'    => 'publish',
         'posts_per_page' => -1,
     ] );
 
-    foreach ( $empresas as $empresa ) {
-        $servicios = get_field( 'company_services', $empresa->ID );
-        if ( ! $servicios ) {
+    foreach ( $contratados as $servicio_post ) {
+        $servicio_post_id = $servicio_post->ID;
+
+        if ( empty( get_field( 'service_status', $servicio_post_id ) ) ) {
             continue;
         }
 
-        $hubo_cambios = false;
-
-        foreach ( $servicios as $index => $fila ) {
-            if ( empty( $fila['service_status'] ) ) {
-                continue;
-            }
-
-            $fecha_fin = talos_parse_fecha_acf( $fila['service_end_date'] ?? '', 'Y-m-d' );
-            if ( talos_periodo_vencido( $fecha_fin, $mes_destino ) ) {
-                $servicios[ $index ]['service_status'] = 0;
-                $hubo_cambios = true;
-                continue;
-            }
-
-            $fecha_inicio = talos_parse_fecha_acf( $fila['service_start_date'] ?? '', 'Y-m-d' );
-            if ( ! $fecha_inicio ) {
-                continue; // sin ancla no se puede calcular recurrencia
-            }
-
-            $servicio_obj = $fila['service_item'] ?? null;
-            $servicio_id  = ( $servicio_obj instanceof WP_Post ) ? $servicio_obj->ID : (int) $servicio_obj;
-            if ( ! $servicio_id ) {
-                continue;
-            }
-
-            $fechas_cobro = talos_fechas_cobro_en_periodo( $fila['service_frequency'], $fecha_inicio, $mes_destino );
-
-            foreach ( $fechas_cobro as $fecha_cobro ) {
-                if ( talos_income_ya_existe( $empresa->ID, $servicio_id, $fecha_cobro ) ) {
-                    continue;
-                }
-                talos_crear_income_desde_servicio( $empresa->ID, $fila, $servicio_id, $fecha_cobro, $fecha_inicio, $fecha_fin, $mes_destino );
-                $creados++;
-            }
+        $empresa_id = (int) get_field( 'service_company', $servicio_post_id, false );
+        if ( ! $empresa_id ) {
+            continue;
         }
 
-        if ( $hubo_cambios ) {
-            update_field( 'company_services', $servicios, $empresa->ID );
+        $fecha_fin = talos_parse_fecha_acf( get_field( 'service_end_date', $servicio_post_id ) ?: '', 'Y-m-d' );
+        if ( talos_periodo_vencido( $fecha_fin, $mes_destino ) ) {
+            update_field( 'service_status', false, $servicio_post_id );
             $desactivados++;
+            continue;
+        }
+
+        $fecha_inicio = talos_parse_fecha_acf( get_field( 'service_start_date', $servicio_post_id ) ?: '', 'Y-m-d' );
+        if ( ! $fecha_inicio ) {
+            continue; // sin ancla no se puede calcular recurrencia
+        }
+
+        $servicio_obj = get_field( 'service_item', $servicio_post_id );
+        $servicio_id  = ( $servicio_obj instanceof WP_Post ) ? $servicio_obj->ID : (int) $servicio_obj;
+        if ( ! $servicio_id ) {
+            continue;
+        }
+
+        $fila = [
+            'service_invoice_description' => get_field( 'service_invoice_description', $servicio_post_id ),
+            'service_quantity'            => get_field( 'service_quantity', $servicio_post_id ),
+            'service_price'               => get_field( 'service_price', $servicio_post_id ),
+            'service_applies_iva'         => get_field( 'service_applies_iva', $servicio_post_id ),
+            'service_reminder_allowed'    => get_field( 'service_reminder_allowed', $servicio_post_id ),
+        ];
+
+        $fechas_cobro = talos_fechas_cobro_en_periodo( get_field( 'service_frequency', $servicio_post_id ), $fecha_inicio, $mes_destino );
+
+        foreach ( $fechas_cobro as $fecha_cobro ) {
+            if ( talos_income_ya_existe( $empresa_id, $servicio_id, $fecha_cobro ) ) {
+                continue;
+            }
+            talos_crear_income_desde_servicio( $empresa_id, $fila, $servicio_id, $fecha_cobro, $fecha_inicio, $fecha_fin, $mes_destino );
+            $creados++;
         }
     }
 

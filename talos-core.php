@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Talos Core ERP
  * Description: Infraestructura central, Custom Post Types y lógica relacional para Talos 2.0.
- * Version: 2.3.6
+ * Version: 2.4.0
  * Author: Once24
  */
 
@@ -36,6 +36,7 @@ function talos_register_core_modules() {
     // Nuestro mapa definitivo de módulos
     $modules = [
         'talos_company'     => ['plural' => 'Empresas', 'singular' => 'Empresa', 'icon' => 'dashicons-building'],
+        'talos_company_service' => ['plural' => 'Servicios Contratados', 'singular' => 'Servicio Contratado', 'icon' => 'dashicons-admin-links'],
         'talos_contact'     => ['plural' => 'Contactos', 'singular' => 'Contacto', 'icon' => 'dashicons-id-alt'],
         'talos_service_cat' => ['plural' => 'Cat. Servicios', 'singular' => 'Servicio', 'icon' => 'dashicons-hammer'],
         'talos_team'        => ['plural' => 'Equipo', 'singular' => 'Miembro', 'icon' => 'dashicons-groups'],
@@ -100,38 +101,23 @@ function talos_acf_json_load_point( $paths ) {
  * 3. AUTOMATIZACIONES Y CÁLCULOS (MÓDULO EMPRESAS)
  * =========================================================================
  */
-add_action('acf/save_post', 'talos_calcular_utilidad_empresa', 20);
-function talos_calcular_utilidad_empresa( $post_id ) {
-    
-    // Solo ejecutamos esto si estamos guardando un post del tipo "Empresa"
-    if ( get_post_type($post_id) !== 'talos_company' ) {
+// Ex-repetidor company_services, migrado a CPT propio (talos_company_service)
+// -- un post por servicio contratado, ligado a su Empresa via service_company.
+// Motivo: un repetidor ACF se guarda como array serializado por indice, lo
+// que lo hace fragil para importar (un CSV fuera de orden descompone todo)
+// y dificil de consultar/filtrar en el front. Ver [[feedback_talos_no_repeaters]].
+add_action('acf/save_post', 'talos_calcular_utilidad_servicio_contratado', 20);
+function talos_calcular_utilidad_servicio_contratado( $post_id ) {
+    if ( get_post_type( $post_id ) !== 'talos_company_service' ) {
         return;
     }
 
-    // Obtenemos todas las filas del repetidor de servicios de esta empresa
-    $servicios = get_field('company_services', $post_id);
-    
-    // Si la empresa tiene servicios contratados, hacemos la matemática
-    if ( $servicios ) {
-        $hubo_cambios = false;
-        
-        // Recorremos cada servicio uno por uno
-        foreach ( $servicios as $index => $row ) {
-            $precio = (float) $row['service_price'];
-            $costo  = (float) $row['service_cost'];
-            $utilidad_calculada = $precio - $costo;
-            
-            // Verificamos si la utilidad necesita actualizarse para no hacer guardados innecesarios (WPO)
-            if ( !isset($row['service_utility']) || (float) $row['service_utility'] !== $utilidad_calculada ) {
-                $servicios[$index]['service_utility'] = $utilidad_calculada;
-                $hubo_cambios = true;
-            }
-        }
-        
-        // Si calculamos utilidades nuevas, actualizamos el repetidor completo de forma silenciosa
-        if ( $hubo_cambios ) {
-            update_field('company_services', $servicios, $post_id);
-        }
+    $precio = (float) get_field( 'service_price', $post_id );
+    $costo  = (float) get_field( 'service_cost', $post_id );
+    $utilidad_calculada = $precio - $costo;
+
+    if ( (float) get_field( 'service_utility', $post_id ) !== $utilidad_calculada ) {
+        update_field( 'service_utility', $utilidad_calculada, $post_id );
     }
 }
 

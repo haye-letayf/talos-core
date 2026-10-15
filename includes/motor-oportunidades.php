@@ -117,11 +117,15 @@ function talos_filtrar_contactos_de_empresa( $args, $field, $post_id ) {
 }
 
 /**
- * 5. Conversión a Cliente — cuando la Etapa pasa a "Ganada": copia cada
- * fila de quote_items a company_services de la Empresa (colapsando el
- * descuento del concepto en el Precio final) y sube company_class a
- * "client". Idempotente vía meta interno _talos_opportunity_converted,
- * para no duplicar filas si la Oportunidad se vuelve a guardar.
+ * 5. Conversión a Cliente — cuando la Etapa pasa a "Ganada": crea un post
+ * talos_company_service por cada fila de quote_items (colapsando el
+ * descuento del concepto en el Precio final), ligado a la Empresa via
+ * service_company, y sube company_class a "client". Idempotente vía meta
+ * interno _talos_opportunity_converted, para no duplicar si la Oportunidad
+ * se vuelve a guardar.
+ *
+ * Antes escribia al repetidor company_services; migrado a CPT propio
+ * (talos_company_service) -- ver [[feedback_talos_no_repeaters]].
  */
 add_action( 'acf/save_post', 'talos_convertir_oportunidad_ganada', 20 );
 function talos_convertir_oportunidad_ganada( $post_id ) {
@@ -143,33 +147,36 @@ function talos_convertir_oportunidad_ganada( $post_id ) {
 
     $conceptos = get_field( 'quote_items', $post_id );
     if ( $conceptos ) {
-        $servicios = get_field( 'company_services', $empresa_id ) ?: [];
-
         foreach ( $conceptos as $item ) {
             // post_object regresa el WP_Post completo — extraemos el ID crudo a mano.
             $servicio_obj = $item['service_item'] ?? null;
             $servicio_id  = ( $servicio_obj instanceof WP_Post ) ? $servicio_obj->ID : (int) $servicio_obj;
 
-            $servicios[] = [
-                'service_item'                => $servicio_id,
-                'service_invoice_description' => $item['service_invoice_description'] ?? '',
-                'service_frequency'           => $item['service_frequency'] ?? '',
-                'service_quantity'            => $item['service_quantity'] ?? 1,
-                'service_price'               => talos_precio_final_concepto( $item ),
-                'service_applies_iva'         => ! empty( $item['service_applies_iva'] ),
-                'service_deferred'            => false,
-                'service_deferred_months'     => 0,
-                'service_cost'                => $item['service_cost'] ?? 0,
-                'service_utility'             => 0, // se recalcula abajo
-                'service_start_date'          => current_time( 'Ymd' ),
-                'service_end_date'            => '',
-                'service_status'              => true,
-                'service_reminder_allowed'    => false,
-            ];
-        }
+            $nuevo_id = wp_insert_post( [
+                'post_title'  => sprintf( '%s - Empresa #%d (desde Oportunidad #%d)', $item['service_invoice_description'] ?? 'Servicio', $empresa_id, $post_id ),
+                'post_type'   => 'talos_company_service',
+                'post_status' => 'publish',
+            ] );
+            if ( is_wp_error( $nuevo_id ) || ! $nuevo_id ) {
+                continue;
+            }
 
-        update_field( 'company_services', $servicios, $empresa_id );
-        talos_calcular_utilidad_empresa( $empresa_id ); // reutiliza el cálculo ya existente
+            update_field( 'service_company', $empresa_id, $nuevo_id );
+            update_field( 'service_item', $servicio_id, $nuevo_id );
+            update_field( 'service_invoice_description', $item['service_invoice_description'] ?? '', $nuevo_id );
+            update_field( 'service_frequency', $item['service_frequency'] ?? '', $nuevo_id );
+            update_field( 'service_quantity', $item['service_quantity'] ?? 1, $nuevo_id );
+            update_field( 'service_price', talos_precio_final_concepto( $item ), $nuevo_id );
+            update_field( 'service_applies_iva', ! empty( $item['service_applies_iva'] ), $nuevo_id );
+            update_field( 'service_deferred', false, $nuevo_id );
+            update_field( 'service_deferred_months', 0, $nuevo_id );
+            update_field( 'service_cost', $item['service_cost'] ?? 0, $nuevo_id );
+            update_field( 'service_start_date', current_time( 'Ymd' ), $nuevo_id );
+            update_field( 'service_end_date', '', $nuevo_id );
+            update_field( 'service_status', true, $nuevo_id );
+            update_field( 'service_reminder_allowed', false, $nuevo_id );
+            talos_calcular_utilidad_servicio_contratado( $nuevo_id ); // reutiliza el calculo ya existente
+        }
     }
 
     update_field( 'company_class', 'client', $empresa_id );
